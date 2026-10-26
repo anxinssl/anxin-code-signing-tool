@@ -1,0 +1,12 @@
+* text=auto eol=lf
+*.png binary
+*.ico binary
+*.bmp binary
+*.exe binary
+*.dll binary
+*.ocx binary
+*.msi binary
+*.cab binary
+licenses/*.txt whitespace=-blank-at-eof
+licenses/nsis-license.txt whitespace=-blank-at-eol,-blank-at-eof
+THIRD-PARTY-NOTICES.txt whitespace=-blank-at-eol,-blank-at-eof

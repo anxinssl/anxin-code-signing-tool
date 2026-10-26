@@ -1,0 +1,327 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <RectangleGeometry x:Key="Geometry.Icon.VisualBox" Rect="0,0,24,24" />
+    <GeometryGroup x:Key="Geometry.Lucide.Copy">
+        <RectangleGeometry Rect="9,9,13,13" RadiusX="2" RadiusY="2" />
+        <PathGeometry Figures="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+    </GeometryGroup>
+    <DrawingImage x:Key="Icon.Command.Copy">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.Copy}">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Color.Text.Secondary}" Thickness="2"
+                             StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <Pen x:Key="Pen.Icon.Command"
+         Brush="{DynamicResource Color.Text.Secondary}"
+         Thickness="2"
+         StartLineCap="Round"
+         EndLineCap="Round"
+         LineJoin="Round" />
+    <Pen x:Key="Pen.Icon.OnAccent"
+         Brush="{DynamicResource Color.Text.OnAccent}"
+         Thickness="2"
+         StartLineCap="Round"
+         EndLineCap="Round"
+         LineJoin="Round" />
+    <Pen x:Key="Pen.Icon.Accent"
+         Brush="{DynamicResource Color.Accent.Primary}"
+         Thickness="2"
+         StartLineCap="Round"
+         EndLineCap="Round"
+         LineJoin="Round" />
+    <Pen x:Key="Pen.Icon.Info"
+         Brush="{DynamicResource Color.Status.Info}"
+         Thickness="2"
+         StartLineCap="Round"
+         EndLineCap="Round"
+         LineJoin="Round" />
+    <Pen x:Key="Pen.Icon.Error"
+         Brush="{DynamicResource Color.Status.Error}"
+         Thickness="2"
+         StartLineCap="Round"
+         EndLineCap="Round"
+         LineJoin="Round" />
+
+    <GeometryGroup x:Key="Geometry.Lucide.CircleAlert">
+        <EllipseGeometry Center="12,12" RadiusX="10" RadiusY="10" />
+        <LineGeometry StartPoint="12,8" EndPoint="12,12" />
+        <LineGeometry StartPoint="12,16" EndPoint="12.01,16" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.CircleX">
+        <EllipseGeometry Center="12,12" RadiusX="10" RadiusY="10" />
+        <PathGeometry Figures="m15 9-6 6" />
+        <PathGeometry Figures="m9 9 6 6" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.Clock">
+        <EllipseGeometry Center="12,12" RadiusX="10" RadiusY="10" />
+        <PathGeometry Figures="M12 6 L12 12 L16 14" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.CodeXml">
+        <PathGeometry Figures="m18 16 4-4-4-4" />
+        <PathGeometry Figures="m6 8-4 4 4 4" />
+        <PathGeometry Figures="m14.5 4-5 16" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.Ellipsis">
+        <EllipseGeometry Center="12,12" RadiusX="1" RadiusY="1" />
+        <EllipseGeometry Center="19,12" RadiusX="1" RadiusY="1" />
+        <EllipseGeometry Center="5,12" RadiusX="1" RadiusY="1" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.FileBadge2">
+        <PathGeometry Figures="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+        <EllipseGeometry Center="12,10" RadiusX="3" RadiusY="3" />
+        <PathGeometry Figures="M14 2v4a2 2 0 0 0 2 2h4" />
+        <PathGeometry Figures="m14 12.5 1 5.5-3-1-3 1 1-5.5" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.FileDown">
+        <PathGeometry Figures="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+        <PathGeometry Figures="M14 2v4a2 2 0 0 0 2 2h4" />
+        <PathGeometry Figures="M12 18v-6" />
+        <PathGeometry Figures="m9 15 3 3 3-3" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.FilePlus2">
+        <PathGeometry Figures="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" />
+        <PathGeometry Figures="M14 2v4a2 2 0 0 0 2 2h4" />
+        <PathGeometry Figures="M3 15h6" />
+        <PathGeometry Figures="M6 12v6" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.FolderOpen">
+        <PathGeometry Figures="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.FolderPlus">
+        <PathGeometry Figures="M12 10v6" />
+        <PathGeometry Figures="M9 13h6" />
+        <PathGeometry Figures="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.FolderSearch">
+        <PathGeometry Figures="M10.7 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v4.1" />
+        <PathGeometry Figures="m21 21-1.9-1.9" />
+        <EllipseGeometry Center="17,17" RadiusX="3" RadiusY="3" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.MonitorCheck">
+        <PathGeometry Figures="m9 10 2 2 4-4" />
+        <RectangleGeometry Rect="2,3,20,14" RadiusX="2" RadiusY="2" />
+        <PathGeometry Figures="M12 17v4" />
+        <PathGeometry Figures="M8 21h8" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.RefreshCw">
+        <PathGeometry Figures="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+        <PathGeometry Figures="M21 3v5h-5" />
+        <PathGeometry Figures="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+        <PathGeometry Figures="M8 16H3v5" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.RotateCcw">
+        <PathGeometry Figures="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+        <PathGeometry Figures="M3 3v5h5" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.ScrollText">
+        <PathGeometry Figures="M15 12h-5" />
+        <PathGeometry Figures="M15 8h-5" />
+        <PathGeometry Figures="M19 17V5a2 2 0 0 0-2-2H4" />
+        <PathGeometry Figures="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.Settings">
+        <PathGeometry Figures="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+        <EllipseGeometry Center="12,12" RadiusX="3" RadiusY="3" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.ShieldCheck">
+        <PathGeometry Figures="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+        <PathGeometry Figures="m9 12 2 2 4-4" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.Signature">
+        <PathGeometry Figures="m21 17-2.156-1.868A.5.5 0 0 0 18 15.5v.5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1c0-2.545-3.991-3.97-8.5-4a1 1 0 0 0 0 5c4.153 0 4.745-11.295 5.708-13.5a2.5 2.5 0 1 1 3.31 3.284" />
+        <PathGeometry Figures="M3 21h18" />
+    </GeometryGroup>
+    <GeometryGroup x:Key="Geometry.Lucide.Trash2">
+        <PathGeometry Figures="M3 6h18" />
+        <PathGeometry Figures="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+        <PathGeometry Figures="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+        <LineGeometry StartPoint="10,11" EndPoint="10,17" />
+        <LineGeometry StartPoint="14,11" EndPoint="14,17" />
+    </GeometryGroup>
+
+    <DrawingImage x:Key="Icon.Command.AddFile">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.FilePlus2}" Pen="{StaticResource Pen.Icon.Command}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Command.AddFolder">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.FolderPlus}" Pen="{StaticResource Pen.Icon.Command}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Command.Remove">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.Trash2}" Pen="{StaticResource Pen.Icon.Command}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Command.Refresh">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.RefreshCw}" Pen="{StaticResource Pen.Icon.Command}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Command.Retry">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.RotateCcw}" Pen="{StaticResource Pen.Icon.Command}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Command.OpenOutput">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.FolderOpen}" Pen="{StaticResource Pen.Icon.Command}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Command.ExportDiagnostics">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.FileDown}" Pen="{StaticResource Pen.Icon.Command}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Command.OpenLogs">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.ScrollText}" Pen="{StaticResource Pen.Icon.Command}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Command.Settings">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.Settings}" Pen="{StaticResource Pen.Icon.Command}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Command.Sign">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.Signature}" Pen="{StaticResource Pen.Icon.OnAccent}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Command.Cancel">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.CircleX}" Pen="{StaticResource Pen.Icon.Command}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Command.BrowseOutput">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.FolderSearch}" Pen="{StaticResource Pen.Icon.Command}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Command.Overflow">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.Ellipsis}" Pen="{StaticResource Pen.Icon.Command}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Icon.Decorative.WorkbenchShield">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.ShieldCheck}" Pen="{StaticResource Pen.Icon.Accent}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Status.Workstation">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.MonitorCheck}" Pen="{StaticResource Pen.Icon.Info}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Status.NativeApi">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.CodeXml}" Pen="{StaticResource Pen.Icon.Info}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Status.SimplySign">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.ShieldCheck}" Pen="{StaticResource Pen.Icon.Info}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Status.Certificate">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.FileBadge2}" Pen="{StaticResource Pen.Icon.Info}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Status.Timestamp">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.Clock}" Pen="{StaticResource Pen.Icon.Info}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Status.Error">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.CircleAlert}" Pen="{StaticResource Pen.Icon.Error}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Section.Certificate">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.FileBadge2}" Pen="{StaticResource Pen.Icon.Accent}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Icon.Section.SigningPolicy">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent" Geometry="{StaticResource Geometry.Icon.VisualBox}" />
+                <GeometryDrawing Geometry="{StaticResource Geometry.Lucide.ShieldCheck}" Pen="{StaticResource Pen.Icon.Accent}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

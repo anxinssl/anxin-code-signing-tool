@@ -1,0 +1,156 @@
+{
+  "project": "Lucide",
+  "repository": "https://github.com/lucide-icons/lucide",
+  "release": "0.468.0",
+  "commit": "f12b0de177fbc2a6795e99be065887e72b237123",
+  "retrieval": {
+    "preferred": "https://raw.githubusercontent.com/lucide-icons/lucide/f12b0de177fbc2a6795e99be065887e72b237123/<path>",
+    "used": "commit-addressed GitHub git-blob API",
+    "reason": "raw.githubusercontent.com DNS lookup failed while GitHub git and API endpoints remained reachable"
+  },
+  "license": {
+    "spdx": "ISC",
+    "path": "LICENSE.txt",
+    "upstreamPath": "LICENSE",
+    "gitBlobSha": "325e8ff0aae2dde3134c1ceed780a11d7bd8f544",
+    "canonicalHash": {
+      "algorithm": "SHA-256",
+      "value": "1e7290b35280a048667bbf0ebabac1c7fd52a75300e8b2946ac165715997f2bc",
+      "inputEncoding": "UTF-8",
+      "bom": "forbidden",
+      "canonicalLineEnding": "LF",
+      "acceptedCheckoutLineEndings": ["LF", "CRLF"],
+      "normalization": "CRLF-to-LF-only"
+    }
+  },
+  "visualContract": {
+    "viewBox": "0 0 24 24",
+    "fill": "none",
+    "strokeWidth": 2,
+    "lineCap": "round",
+    "lineJoin": "round"
+  },
+  "sources": [
+    {
+      "path": "icons/copy.svg",
+      "gitBlobSha": "f62ce99c1f34989a5f70cd15192f8adf9140f4ed",
+      "sha256": "ea80e566c7a12628a447cb53179b19aea4f60b9143e2becd0d0f20bf260e5718",
+      "resources": ["Icon.Command.Copy"],
+      "adaptation": "Copy motif adapted to WPF GeometryGroup; rectangle and path coordinates differ from upstream. Upstream hashes identify the reference, not the local geometry."
+    },
+    {
+      "path": "icons/circle-alert.svg",
+      "gitBlobSha": "578d25c022d9dd30b851d4ad72d9ec7640408a21",
+      "sha256": "ce3e98b7a03b78c0071131df42466e4e1ff5187fccad30e739ec9ce951cf685a",
+      "resources": ["Icon.Status.Error"]
+    },
+    {
+      "path": "icons/circle-x.svg",
+      "gitBlobSha": "e210b2d10168c3b8b8ab6ac33cdb75e3cf88322d",
+      "sha256": "bcd8788901e6f29e1b231a81ba5e707d083d06cb4848a28f29407fab4f8e0b64",
+      "resources": ["Icon.Command.Cancel"]
+    },
+    {
+      "path": "icons/clock.svg",
+      "gitBlobSha": "8ce25b2aef4c020276ed705fb2701b2434c5b4bd",
+      "sha256": "ede96d40554848eaa512664b11e73def3960cd60c260efa59ca9ccc1bbe8ec9c",
+      "resources": ["Icon.Status.Timestamp"]
+    },
+    {
+      "path": "icons/code-xml.svg",
+      "gitBlobSha": "74f2299eb3e31a2ea1ce971ae8b4c64bf00ede88",
+      "sha256": "a6d2110227be375be21da7324d3c09262c1bf019d06bdeab356d515342ab7cce",
+      "resources": ["Icon.Status.NativeApi"]
+    },
+    {
+      "path": "icons/ellipsis.svg",
+      "gitBlobSha": "68456c39be516d1d14aee329ca3b0056ba84d3c5",
+      "sha256": "4f495cc72013ffdfec677f03b33a150f7b4dd741979283fd6853a09024bca112",
+      "resources": ["Icon.Command.Overflow"]
+    },
+    {
+      "path": "icons/file-badge-2.svg",
+      "gitBlobSha": "79b354ccf8224323af011aacd4d0047a97ee2887",
+      "sha256": "2defae388f88cce66f2acf43b5fc0f0628c15c10fb8ec11909cc903adc061b08",
+      "resources": ["Icon.Status.Certificate", "Icon.Section.Certificate"]
+    },
+    {
+      "path": "icons/file-down.svg",
+      "gitBlobSha": "e70a5cd5c1e5fe249638deb657363a2dff9e6204",
+      "sha256": "5ae3f6e123ee47182883504c7bd2a84f05b2dbd1b308b679abd38c32a7000bac",
+      "resources": ["Icon.Command.ExportDiagnostics"]
+    },
+    {
+      "path": "icons/file-plus-2.svg",
+      "gitBlobSha": "d48b3cad1a5055f0362b8b6c6a1f96bfbfcee72c",
+      "sha256": "77883d7529e390f9c762485a2cd1b31f5c5ed9878479dbbecaa7216ac52bf39e",
+      "resources": ["Icon.Command.AddFile"]
+    },
+    {
+      "path": "icons/folder-open.svg",
+      "gitBlobSha": "b01f60fcb51848a9b3a7380d4566c4de7534745c",
+      "sha256": "ee57452b40e71df310214091dd9da1941a397c83197b8ff8d7ae66dd4242578b",
+      "resources": ["Icon.Command.OpenOutput"]
+    },
+    {
+      "path": "icons/folder-plus.svg",
+      "gitBlobSha": "661ebf4d8254e17cd0f0147c5c9f6a45bbfe9fe3",
+      "sha256": "76d62eb7796ce6c7e303c437464923de2d1ae19a5c8d010f8b36dfc1d6180890",
+      "resources": ["Icon.Command.AddFolder"]
+    },
+    {
+      "path": "icons/folder-search.svg",
+      "gitBlobSha": "d931b4d8aacac190099ff9ce6ef4859465cae938",
+      "sha256": "ddcdf0c312320d13a9e327793e73c3a056309e91da1ca630fe1531db81aed247",
+      "resources": ["Icon.Command.BrowseOutput"]
+    },
+    {
+      "path": "icons/monitor-check.svg",
+      "gitBlobSha": "ecbaf7b05465224e7eb1a1f89b010650b7ff3c13",
+      "sha256": "2e9cb7622cf478da338f9d6d286d91a6222218fbf36ceb6f6eddaf026e5bc0a2",
+      "resources": ["Icon.Status.Workstation"]
+    },
+    {
+      "path": "icons/refresh-cw.svg",
+      "gitBlobSha": "c27b3a9677e35fb2353167b01553d3d4cc4e3091",
+      "sha256": "2e10dd403c85a24f163d59fc6151aa21147fe9402e1305dfc8979208caee8944",
+      "resources": ["Icon.Command.Refresh"]
+    },
+    {
+      "path": "icons/rotate-ccw.svg",
+      "gitBlobSha": "eb0fe3491a9aec6af3b5fabac23d24493bde720f",
+      "sha256": "622685386ab4017eabfde01cd74550a20b1924df233b353f73b6b155371f2afd",
+      "resources": ["Icon.Command.Retry"]
+    },
+    {
+      "path": "icons/scroll-text.svg",
+      "gitBlobSha": "c5ccf7f12b19ca32eeec0fb8913d34bfc4562db1",
+      "sha256": "57739b59816cedf5b2fd92559784431ce59f3d14eb77eabb659591b6789e223d",
+      "resources": ["Icon.Command.OpenLogs"]
+    },
+    {
+      "path": "icons/settings.svg",
+      "gitBlobSha": "c044792780b2e15dec321e42920bb3b4bf66b144",
+      "sha256": "3c7bee2696ce0c2d48d34e813f4fcda31f0ad21ab9309aee3751cde4280ad737",
+      "resources": ["Icon.Command.Settings"]
+    },
+    {
+      "path": "icons/shield-check.svg",
+      "gitBlobSha": "da48f664e51be4ceb800dbe4f6c10c5e7cfa800e",
+      "sha256": "8d4fcdbde5bba4abb1a2f6fe53e37ceb6343a1d5449a9d88f6f97c1971d26c4e",
+      "resources": ["Icon.Decorative.WorkbenchShield", "Icon.Status.SimplySign", "Icon.Section.SigningPolicy"]
+    },
+    {
+      "path": "icons/signature.svg",
+      "gitBlobSha": "6e0c01a6fe2481304327d416a785c33e9ebacf08",
+      "sha256": "95f263135c8fd02849c60d5413cd116fdcaaca996ef04fc7c5006967824cf2bf",
+      "resources": ["Icon.Command.Sign"]
+    },
+    {
+      "path": "icons/trash-2.svg",
+      "gitBlobSha": "ab893a1dd08a1ca807ae5406be92e4b2397b6775",
+      "sha256": "e63698acf757d3043fcb4a9ea6ffceff9dd84708707eafc879c86b34a6ff2786",
+      "resources": ["Icon.Command.Remove"]
+    }
+  ]
+}

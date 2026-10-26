@@ -1,0 +1,21 @@
+{
+  "scope": "Only approved SimplySign gates, certificate presentation and notification; inverse-checked against frozen source",
+  "files": {
+    "src/CodeSigner.App/ViewModels/SigningWorkbenchViewModel.Validation.cs": {
+      "before": "        if (readiness.SimplySign.Status != SimplySignInstallationStatus.Installed)\n        {\n            return new(\"SimplySign Desktop 未安装\", \"ReadinessSimplySign\");\n        }\n\n        if (readiness.CertificateCatalog.Status != CertificateAvailabilityStatus.CertificateAvailable)\n",
+      "after": "        if (readiness.CertificateCatalog.Status != CertificateAvailabilityStatus.CertificateAvailable)\n"
+    },
+    "src/CodeSigner.App/ViewModels/SigningWorkbenchViewModel.Preflight.cs": {
+      "before": "        if (snapshot.SimplySign.Status != SimplySignInstallationStatus.Installed)\n        {\n            return FailedCheck(capture, QueueAuditChecks.SimplySign, Issue(\n                QueueItemPreflightIssueCode.ProviderUnavailable,\n                QueueAuditReasons.ProviderUnavailable,\n                \"SimplySign Desktop 未安装\",\n                \"ReadinessSimplySign\",\n                PreflightRecoveryAction.RefreshReadiness));\n        }\n\n        RequireCheck(capture, QueueAuditChecks.SimplySign, passed: true);\n        if (snapshot.CertificateCatalog.Status != CertificateAvailabilityStatus.CertificateAvailable)\n",
+      "after": "        if (snapshot.CertificateCatalog.Status != CertificateAvailabilityStatus.CertificateAvailable)\n"
+    },
+    "src/CodeSigner.App/ViewModels/SigningWorkbenchViewModel.Properties.cs": {
+      "before": "    public string CertificateStatus => readiness?.CertificateCatalog.Status == CertificateAvailabilityStatus.CertificateAvailable\n        ? $\"{readiness.CertificateCatalog.Certificates.Count} 张可用证书\"\n        : \"无可用证书\";\n",
+      "after": "    public string CertificateStatus => readiness is null\n        ? \"尚未刷新证书\"\n        : readiness.CertificateCatalog.Status == CertificateAvailabilityStatus.CertificateAvailable\n            ? $\"已读取 {readiness.CertificateCatalog.Certificates.Count} 张代码签名证书\"\n            : \"未发现可用证书\";\n\n    public string CertificatePreparationHint =>\n        readiness?.CertificateCatalog.Status == CertificateAvailabilityStatus.Unavailable\n            ? \"未发现可用的代码签名证书。云证书请检查 SimplySign 等对应客户端的登录状态；硬件 UKey 请检查 SafeNet 等驱动是否识别到设备和证书，然后重新刷新。\"\n            : \"云证书请先登录对应客户端；硬件 UKey 请先插入设备并确认驱动已识别。准备完成后，点击“刷新证书”，读取到有效证书后再签名。\";\n"
+    },
+    "src/CodeSigner.App/ViewModels/SigningWorkbenchViewModel.ReadinessSettings.cs": {
+      "before": "        OnPropertyChanged(nameof(TimestampStatus));\n",
+      "after": "        OnPropertyChanged(nameof(CertificatePreparationHint));\n        OnPropertyChanged(nameof(TimestampStatus));\n"
+    }
+  }
+}

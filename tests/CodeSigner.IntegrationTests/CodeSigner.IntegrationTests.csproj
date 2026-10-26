@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <ProjectReference Include="../../src/CodeSigner.Core/CodeSigner.Core.csproj" />
+    <ProjectReference Include="../../src/CodeSigner.Windows/CodeSigner.Windows.csproj" />
+    <ProjectReference Include="../../src/CodeSigner.Worker/CodeSigner.Worker.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="../../tools/compatibility-probe/CodeSigner.CompatibilityProbe.csproj" />
+  </ItemGroup>
+</Project>

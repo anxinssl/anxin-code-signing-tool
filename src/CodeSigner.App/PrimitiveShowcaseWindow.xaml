@@ -1,0 +1,223 @@
+<Window x:Class="CodeSigner.App.PrimitiveShowcaseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:automation="clr-namespace:System.Windows.Automation;assembly=PresentationCore"
+        Title="安信证书签名工具控件展示"
+        Icon="Assets/CodeSigner.ico"
+        Width="900"
+        Height="700"
+        WindowStartupLocation="CenterScreen"
+        AutomationProperties.AutomationId="PrimitiveShowcaseWindow"
+        AutomationProperties.Name="安信证书签名工具控件展示">
+    <Grid Margin="{StaticResource Inset.Window.Content}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                Style="{StaticResource BandBorderStyle}"
+                AutomationProperties.Name="就绪状态：已就绪">
+            <DockPanel LastChildFill="True">
+                <TextBlock x:Name="PrimitiveReadinessHeading"
+                           Margin="0,0,8,0"
+                           FontSize="{StaticResource Typography.SectionHeading.Size}"
+                           FontWeight="SemiBold"
+                           Text="就绪状态"
+                           automation:AutomationProperties.HeadingLevel="Level2" />
+                <TextBlock Margin="0,0,8,0"
+                           FontFamily="{StaticResource Font.Icon}"
+                           FontSize="{StaticResource Typography.SectionHeading.Size}"
+                           Foreground="{DynamicResource Color.Status.Success}"
+                           Text="&#xE73E;"
+                           AutomationProperties.Name="已就绪" />
+                <TextBlock FontWeight="SemiBold"
+                           Text="已就绪"
+                           AutomationProperties.AutomationId="PrimitiveReadiness"
+                           AutomationProperties.Name="就绪状态：已就绪" />
+                <TextBlock Margin="12,0,0,0"
+                           Foreground="{DynamicResource Color.Text.Secondary}"
+                           Text="Windows 签名 API 和证书目录可用" />
+            </DockPanel>
+        </Border>
+
+        <StackPanel Grid.Row="1" Margin="0,12,0,0">
+            <TextBlock x:Name="PrimitiveCommandStatesHeading"
+                       FontSize="{StaticResource Typography.SectionHeading.Size}"
+                       FontWeight="SemiBold"
+                       Text="命令状态"
+                       automation:AutomationProperties.HeadingLevel="Level2" />
+            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                <Button Style="{StaticResource CommandButtonStyle}"
+                        AutomationProperties.AutomationId="PrimitiveCommandButton"
+                        AutomationProperties.Name="添加签名文件"
+                        AutomationProperties.HelpText="选择一个或多个支持的签名文件">
+                    <Image Width="{StaticResource Metric.Icon.Command.Size}"
+                           Height="{StaticResource Metric.Icon.Command.Size}"
+                           Focusable="False"
+                           IsHitTestVisible="False"
+                           Source="{StaticResource Icon.Command.AddFile}"
+                           Stretch="Uniform" />
+                </Button>
+                <Button Style="{StaticResource CommandButtonStyle}"
+                        IsEnabled="False"
+                        AutomationProperties.AutomationId="PrimitiveDisabledCommand"
+                        AutomationProperties.Name="重试失败的签名项目"
+                        AutomationProperties.HelpText="当前没有可重试的失败或暂停签名项目">
+                    <Image Width="{StaticResource Metric.Icon.Command.Size}"
+                           Height="{StaticResource Metric.Icon.Command.Size}"
+                           Focusable="False"
+                           IsHitTestVisible="False"
+                           Source="{StaticResource Icon.Command.Refresh}"
+                           Stretch="Uniform" />
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Margin="0,12,0,0">
+            <TextBlock x:Name="PrimitiveSigningModeHeading"
+                       FontSize="{StaticResource Typography.SectionHeading.Size}"
+                       FontWeight="SemiBold"
+                       Text="签名模式"
+                       automation:AutomationProperties.HeadingLevel="Level2" />
+            <Grid Margin="0,4,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <RadioButton Grid.Column="0"
+                             GroupName="PrimitiveMode"
+                             IsChecked="True"
+                             Style="{StaticResource SegmentedRadioButtonStyle}"
+                             Content="单签（SHA-256）"
+                             ToolTip="选择 SHA-256 单签模式"
+                             AutomationProperties.AutomationId="PrimitiveModeSingle"
+                             AutomationProperties.Name="SHA-256 单签模式"
+                             AutomationProperties.HelpText="使用 SHA-256 证书进行单次签名" />
+                <RadioButton Grid.Column="1"
+                             Margin="4,0,0,0"
+                             GroupName="PrimitiveMode"
+                             Style="{StaticResource SegmentedRadioButtonStyle}"
+                             Content="双签（SHA-1 + SHA-256）"
+                             ToolTip="选择 SHA-1 加 SHA-256 双签模式"
+                             AutomationProperties.AutomationId="PrimitiveModeDual"
+                             AutomationProperties.Name="SHA-1 加 SHA-256 双签模式"
+                             AutomationProperties.HelpText="先使用 SHA-1，再追加 SHA-256 签名" />
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Margin="0,12,0,0">
+            <TextBlock x:Name="PrimitiveCertificateHeading"
+                       FontSize="{StaticResource Typography.SectionHeading.Size}"
+                       FontWeight="SemiBold"
+                       Text="证书"
+                       automation:AutomationProperties.HeadingLevel="Level2" />
+            <Label Content="证书"
+                   Target="{Binding ElementName=PrimitiveCertificateCombo}" />
+            <ComboBox x:Name="PrimitiveCertificateCombo"
+                      Margin="0,4,0,0"
+                      Style="{StaticResource CertificateComboBoxStyle}"
+                      SelectedIndex="0"
+                      ToolTip="选择用于签名的证书"
+                      AutomationProperties.AutomationId="PrimitiveCertificateCombo"
+                      AutomationProperties.Name="主签名证书"
+                      AutomationProperties.HelpText="选择证书后才能开始签名">
+                <ComboBoxItem AutomationProperties.Name="CN=Release；到期 2027-07-20；CurrentUser My；指纹 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                    <TextBlock Text="CN=Release，到期 2027-07-20" />
+                </ComboBoxItem>
+            </ComboBox>
+            <Border x:Name="PrimitiveValidationMessage"
+                    automation:AutomationProperties.LiveSetting="Assertive">
+                <TextBlock Style="{StaticResource ValidationTextStyle}"
+                           Text="目标文件已存在，请选择其他输出目录"
+                           AutomationProperties.AutomationId="PrimitiveValidationText"
+                           AutomationProperties.Name="校验错误：目标文件已存在，请选择其他输出目录" />
+            </Border>
+        </StackPanel>
+
+        <Grid Grid.Row="4" Margin="0,12,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="PrimitiveQueueHeading"
+                       FontSize="{StaticResource Typography.SectionHeading.Size}"
+                       FontWeight="SemiBold"
+                       Text="签名队列"
+                       automation:AutomationProperties.HeadingLevel="Level2" />
+            <DataGrid Grid.Row="1"
+                      Margin="0,4,0,0"
+                      Style="{StaticResource WorkbenchDataGridStyle}"
+                      AutoGenerateColumns="False"
+                      ItemsSource="{Binding}"
+                      ToolTip="显示每个签名项目的状态、进度和结果"
+                      AutomationProperties.AutomationId="PrimitiveDataGrid"
+                      AutomationProperties.Name="签名文件队列"
+                      AutomationProperties.HelpText="每行对应一个支持的签名文件">
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="AutomationProperties.AutomationId">
+                            <Setter.Value>
+                                <Binding Path="Id" StringFormat="PrimitiveQueueRow_{0}" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="AutomationProperties.Name">
+                            <Setter.Value>
+                                <MultiBinding StringFormat="{}{0}, {1}, {2}, {3}">
+                                    <Binding Path="Path" />
+                                    <Binding Path="State" />
+                                    <Binding Path="Progress" />
+                                    <Binding Path="Result" />
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.ItemContainerStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="文件输入" Binding="{Binding Path}" />
+                    <DataGridTextColumn Width="144" Header="状态" Binding="{Binding State}" />
+                    <DataGridTextColumn Width="88" Header="进度" Binding="{Binding Progress}" />
+                    <DataGridTextColumn Width="160" Header="结果" Binding="{Binding Result}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <DockPanel Grid.Row="5" Margin="0,12,0,0" LastChildFill="False">
+            <TextBlock x:Name="PrimitiveProgressHeading"
+                       Margin="0,0,8,0"
+                       VerticalAlignment="Center"
+                       FontSize="{StaticResource Typography.SectionHeading.Size}"
+                       FontWeight="SemiBold"
+                       Text="进度与操作"
+                       automation:AutomationProperties.HeadingLevel="Level2" />
+            <ProgressBar x:Name="PrimitiveProgressMessage"
+                         Width="240"
+                         Height="20"
+                         Minimum="0"
+                         Maximum="100"
+                         Value="60"
+                         ToolTip="显示当前签名进度"
+                         AutomationProperties.AutomationId="PrimitiveProgress"
+                         AutomationProperties.Name="正在签名示例文件，进度 60%"
+                         automation:AutomationProperties.LiveSetting="Polite" />
+            <Button Margin="12,0,0,0"
+                    Style="{StaticResource PrimaryActionButtonStyle}"
+                    Content="_签名"
+                    AutomationProperties.AutomationId="PrimitivePrimaryAction"
+                    AutomationProperties.Name="开始签名"
+                    AutomationProperties.HelpText="已准备好签名一个支持的签名文件" />
+            <Button Margin="8,0,0,0"
+                    Style="{StaticResource PrimaryActionButtonStyle}"
+                    Content="签名"
+                    IsEnabled="False"
+                    AutomationProperties.AutomationId="PrimitiveDisabledPrimaryAction"
+                    AutomationProperties.Name="开始签名"
+                    AutomationProperties.HelpText="签名前请选择证书" />
+        </DockPanel>
+    </Grid>
+</Window>

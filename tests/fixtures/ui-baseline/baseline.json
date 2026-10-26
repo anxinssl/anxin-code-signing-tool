@@ -1,0 +1,601 @@
+{
+  "inventories": {
+    "resolutionScaling": {
+      "responsiveLines": [
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 65,
+          "text": "        bool compact = ActualWidth < CompactWidth || ActualHeight < CompactHeight;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 66,
+          "text": "        bool ultraCompact = compact && (ActualWidth < 560 || ActualHeight < 420);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 67,
+          "text": "        bool heightCondensed = ActualHeight < 760;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 68,
+          "text": "        bool condensedCertificateSelection = compact || heightCondensed;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 69,
+          "text": "        bool useCondensedActionRail = compact || heightCondensed;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 70,
+          "text": "        IsCompactLayout = compact;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 71,
+          "text": "        UpdateSummaryBindings(compact);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 72,
+          "text": "        Visibility statusVisibility = compact ? Visibility.Collapsed : Visibility.Visible;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 73,
+          "text": "        RootGrid.Margin = compact ? new Thickness(0) : new Thickness(16);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 74,
+          "text": "        AppHeader.Visibility = compact ? Visibility.Collapsed : Visibility.Visible;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 75,
+          "text": "        AppHeader.Margin = heightCondensed ? new Thickness(0, 0, 0, 4) : new Thickness(0, 0, 0, 12);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 76,
+          "text": "        WorkstationStatusText.Visibility = statusVisibility;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 77,
+          "text": "        NativeApiStatusText.Visibility = statusVisibility;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 78,
+          "text": "        SimplySignStatusText.Visibility = statusVisibility;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 79,
+          "text": "        CertificateStatusText.Visibility = statusVisibility;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 80,
+          "text": "        TimestampStatusText.Visibility = statusVisibility;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 81,
+          "text": "        CertificateDetailsPanel.Visibility = compact ? Visibility.Collapsed : Visibility.Visible;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 83,
+          "text": "        DetailsColumn.Width = compact ? new GridLength(0) : new GridLength(400);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 84,
+          "text": "        Grid.SetColumn(ConfigurationPanel, compact ? 0 : 1);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 85,
+          "text": "        Grid.SetColumnSpan(ConfigurationPanel, compact ? 2 : 1);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 86,
+          "text": "        ConfigurationPanel.Margin = compact ? new Thickness(0) : new Thickness(16, 0, 0, 0);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 87,
+          "text": "        ReadinessBand.Padding = compact ? new Thickness(8, 4, 8, 4) : new Thickness(12, 8, 12, 8);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 88,
+          "text": "        ReadinessBand.Margin = compact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 90,
+          "text": "            : heightCondensed ? new Thickness(0, 0, 0, 4) : new Thickness(0, 0, 0, 12);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 91,
+          "text": "        CommandBand.Padding = compact ? new Thickness(8, 4, 8, 4) : new Thickness(12, 6, 12, 6);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 92,
+          "text": "        CommandBand.Margin = compact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 94,
+          "text": "            : heightCondensed ? new Thickness(0, 0, 0, 4) : new Thickness(0, 0, 0, 12);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 95,
+          "text": "        CommandActionsPanel.Visibility = ultraCompact ? Visibility.Collapsed : Visibility.Visible;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 97,
+          "text": "        ConfigurationBand.Margin = compact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 99,
+          "text": "            : heightCondensed ? new Thickness(0, 0, 0, 4) : new Thickness(0, 0, 0, 8);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 100,
+          "text": "        CertificateDetailsContent.Margin = compact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 102,
+          "text": "            : heightCondensed ? new Thickness(10) : new Thickness(14);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 103,
+          "text": "        ConfigurationContent.Margin = ultraCompact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 105,
+          "text": "            : compact ? new Thickness(8, 4, 8, 4)"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 106,
+          "text": "            : heightCondensed ? new Thickness(10) : new Thickness(14);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 107,
+          "text": "        ActionBand.Padding = ultraCompact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 109,
+          "text": "            : useCondensedActionRail ? new Thickness(8, 4, 8, 4) : new Thickness(12, 8, 12, 8);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 110,
+          "text": "        ActionBand.Margin = compact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 112,
+          "text": "            : heightCondensed ? new Thickness(0, 0, 0, 4) : new Thickness(0, 0, 0, 8);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 113,
+          "text": "        SummaryBand.Padding = ultraCompact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 115,
+          "text": "            : compact ? new Thickness(8, 2, 8, 2) : new Thickness(12, 6, 12, 6);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 116,
+          "text": "        SummaryBand.Margin = compact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 118,
+          "text": "            : heightCondensed ? new Thickness(0, 0, 0, 4) : new Thickness(0, 0, 0, 8);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 119,
+          "text": "        QueueRegion.Margin = compact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 121,
+          "text": "            : heightCondensed ? new Thickness(0, 0, 0, 4) : new Thickness(0, 0, 0, 12);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 122,
+          "text": "        QueueHeader.Visibility = ultraCompact ? Visibility.Collapsed : Visibility.Visible;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 123,
+          "text": "        QueueHeader.Margin = compact || heightCondensed"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 128,
+          "text": "        QueueBody.Height = ultraCompact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 130,
+          "text": "            : compact && ActualHeight <= 500"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 132,
+          "text": "                : !compact && heightCondensed && ActualHeight >= 720"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 135,
+          "text": "        QueueHeading.Margin = compact ? new Thickness(0) : new Thickness(0, 0, 0, 4);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 136,
+          "text": "        QueueHeading.FontSize = compact ? 14 : 16;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 137,
+          "text": "        FullActionRail.Visibility = useCondensedActionRail ? Visibility.Collapsed : Visibility.Visible;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 138,
+          "text": "        CompactActionRail.Visibility = useCondensedActionRail ? Visibility.Visible : Visibility.Collapsed;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 139,
+          "text": "        Grid.SetRow(WorkerRecoveryActionsPanel, compact ? 1 : 0);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 140,
+          "text": "        Grid.SetColumn(WorkerRecoveryActionsPanel, compact ? 0 : 1);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 141,
+          "text": "        Grid.SetColumnSpan(WorkerRecoveryActionsPanel, compact ? 2 : 1);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 142,
+          "text": "        WorkerRecoveryActionsPanel.Margin = compact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 145,
+          "text": "        WorkerRecoveryActionsPanel.HorizontalAlignment = compact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 148,
+          "text": "        Grid.SetColumnSpan(WorkerRecoveryMessageText, compact ? 2 : 1);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 149,
+          "text": "        SigningPolicyHeading.Visibility = statusVisibility;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 150,
+          "text": "        PrimaryCertificateLabel.Visibility = condensedCertificateSelection ? Visibility.Collapsed : Visibility.Visible;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 151,
+          "text": "        SecondaryCertificateLabel.Visibility = !condensedCertificateSelection && viewModel.IsDualMode"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 155,
+          "text": "        SigningModePanel.Margin = compact ? new Thickness(0) : new Thickness(0, 6, 0, 0);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 156,
+          "text": "        PrimaryCertificateCombo.Margin = ultraCompact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 159,
+          "text": "        SecondaryCertificateCombo.Margin = ultraCompact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 164,
+          "text": "        Grid.SetRow(SigningModePanel, compact ? 0 : 1);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 165,
+          "text": "        Grid.SetRow(PrimaryCertificateCombo, compact ? 1 : heightCondensed ? 2 : 3);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 166,
+          "text": "        Grid.SetRow(SecondaryCertificateCombo, condensedCertificateSelection ? (compact ? 1 : 2) : 5);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 167,
+          "text": "        Grid.SetColumn(PrimaryCertificateCombo, 0);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 168,
+          "text": "        Grid.SetColumn(SecondaryCertificateCombo, condensedCertificateSelection ? 1 : 0);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 169,
+          "text": "        Grid.SetColumnSpan(SecondaryCertificateCombo, condensedCertificateSelection ? 1 : 2);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 170,
+          "text": "        QueueGrid.RowHeight = compact && !ultraCompact ? 46 : 50;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 171,
+          "text": "        QueueGrid.ColumnHeaderHeight = compact && !ultraCompact ? 34 : 36;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 172,
+          "text": "        QueueGrid.ColumnHeaderStyle = compact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 175,
+          "text": "        Style? compactCellStyle = compact"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 178,
+          "text": "        FormatColumn.ElementStyle = compactCellStyle;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 179,
+          "text": "        EngineColumn.ElementStyle = compactCellStyle;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 180,
+          "text": "        PolicyColumn.ElementStyle = compactCellStyle;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 181,
+          "text": "        StateColumn.ElementStyle = compactCellStyle;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 182,
+          "text": "        FileColumn.MinWidth = compact ? 128 : 180;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 183,
+          "text": "        FileColumn.Width = compact ? new DataGridLength(128) : new DataGridLength(2, DataGridLengthUnitType.Star);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 184,
+          "text": "        FormatColumn.MinWidth = compact ? 70 : 112;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 185,
+          "text": "        FormatColumn.Width = compact ? new DataGridLength(70) : new DataGridLength(132);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 186,
+          "text": "        EngineColumn.MinWidth = compact ? 76 : 108;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 187,
+          "text": "        EngineColumn.Width = compact ? new DataGridLength(76) : new DataGridLength(124);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 188,
+          "text": "        PolicyColumn.MinWidth = compact ? 64 : 108;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 189,
+          "text": "        PolicyColumn.Width = compact ? new DataGridLength(64) : new DataGridLength(124);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 190,
+          "text": "        StateColumn.MinWidth = compact ? 52 : 20;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 191,
+          "text": "        StateColumn.Width = compact ? new DataGridLength(52) : new DataGridLength(144);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 192,
+          "text": "        ProgressColumn.MinWidth = compact ? 74 : 20;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 193,
+          "text": "        ProgressColumn.Width = compact ? new DataGridLength(74) : new DataGridLength(136);"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 194,
+          "text": "        ResultColumn.MinWidth = compact ? 92 : 180;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 195,
+          "text": "        CompactProgress.Visibility = ultraCompact ? Visibility.Collapsed : Visibility.Visible;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 196,
+          "text": "        CompactOpenOutputButton.Visibility = ultraCompact ? Visibility.Collapsed : Visibility.Visible;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 197,
+          "text": "        UltraCommandButtons.Visibility = ultraCompact ? Visibility.Visible : Visibility.Collapsed;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 202,
+          "text": "                $\"布局：{(compact ? \"紧凑\" : \"完整\")}；当前大小 {ActualWidth:0.##} × {ActualHeight:0.##} DIP\"));"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 218,
+          "text": "    private void UpdateWatermarkVisibility() => WatermarkText.Visibility ="
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 225,
+          "text": "        bool sideBySideCertificateSelection = IsCompactLayout || ActualHeight < 760;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 226,
+          "text": "        Grid.SetColumnSpan("
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 229,
+          "text": "        SecondaryCertificateLabel.Visibility = !IsCompactLayout && ActualHeight >= 760 && viewModel.IsDualMode"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 300,
+          "text": "    private void UpdateSummaryBindings(bool compact)"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 302,
+          "text": "        if (summaryUsesCurrentFileStatus == compact)"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 307,
+          "text": "        summaryUsesCurrentFileStatus = compact;"
+        },
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml.cs",
+          "line": 308,
+          "text": "        string propertyName = compact"
+        }
+      ],
+      "windowSizing": [
+        {
+          "path": "src/CodeSigner.App/MainWindow.xaml",
+          "attributes": {
+            "Width": "1180",
+            "Height": "940",
+            "MinWidth": null,
+            "MinHeight": null,
+            "MaxWidth": null,
+            "MaxHeight": null,
+            "ResizeMode": null,
+            "SizeToContent": null,
+            "WindowStartupLocation": "CenterScreen"
+          },
+          "openingTag": "<Window x:Class=\"CodeSigner.App.MainWindow\"\r\n        xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\r\n        xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\r\n        xmlns:local=\"clr-namespace:CodeSigner.App\"\r\n        xmlns:automation=\"clr-namespace:System.Windows.Automation;assembly=PresentationCore\"\r\n        Title=\"代码签名工具\"\r\n        Icon=\"Assets/CodeSigner.ico\"\r\n        Width=\"1180\"\r\n        Height=\"940\"\r\n        WindowStartupLocation=\"CenterScreen\"\r\n        AllowDrop=\"True\"\r\n        PreviewDragOver=\"Window_PreviewDragOver\"\r\n        Drop=\"Window_Drop\"\r\n        PreviewKeyDown=\"Window_PreviewKeyDown\"\r\n        AutomationProperties.AutomationId=\"SigningWorkbenchWindow\"\r\n        AutomationProperties.Name=\"代码签名工具签名工作台\">"
+        },
+        {
+          "path": "src/CodeSigner.App/SettingsWindow.xaml",
+          "attributes": {
+            "Width": "520",
+            "Height": null,
+            "MinWidth": null,
+            "MinHeight": null,
+            "MaxWidth": null,
+            "MaxHeight": null,
+            "ResizeMode": "NoResize",
+            "SizeToContent": "Height",
+            "WindowStartupLocation": "CenterOwner"
+          },
+          "openingTag": "<Window x:Class=\"CodeSigner.App.SettingsWindow\"\r\n        xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\r\n        xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\r\n        xmlns:automation=\"clr-namespace:System.Windows.Automation;assembly=PresentationCore\"\r\n        Title=\"签名设置\"\r\n        Icon=\"Assets/CodeSigner.ico\"\r\n        Width=\"520\"\r\n        SizeToContent=\"Height\"\r\n        ResizeMode=\"NoResize\"\r\n        ShowInTaskbar=\"False\"\r\n        WindowStartupLocation=\"CenterOwner\"\r\n        AutomationProperties.AutomationId=\"SettingsWindow\"\r\n        AutomationProperties.Name=\"签名设置\">"
+        },
+        {
+          "path": "src/CodeSigner.App/PrimitiveShowcaseWindow.xaml",
+          "attributes": {
+            "Width": "900",
+            "Height": "700",
+            "MinWidth": null,
+            "MinHeight": null,
+            "MaxWidth": null,
+            "MaxHeight": null,
+            "ResizeMode": null,
+            "SizeToContent": null,
+            "WindowStartupLocation": "CenterScreen"
+          },
+          "openingTag": "<Window x:Class=\"CodeSigner.App.PrimitiveShowcaseWindow\"\r\n        xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\r\n        xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\r\n        xmlns:automation=\"clr-namespace:System.Windows.Automation;assembly=PresentationCore\"\r\n        Title=\"代码签名工具控件展示\"\r\n        Icon=\"Assets/CodeSigner.ico\"\r\n        Width=\"900\"\r\n        Height=\"700\"\r\n        WindowStartupLocation=\"CenterScreen\"\r\n        AutomationProperties.AutomationId=\"PrimitiveShowcaseWindow\"\r\n        AutomationProperties.Name=\"代码签名工具控件展示\">"
+        }
+      ],
+      "planDeclaredViewportMatrix": [
+        {
+          "widthDip": 992,
+          "heightDip": 736,
+          "scalePercent": null,
+          "label": "normal"
+        },
+        {
+          "widthDip": 650.67,
+          "heightDip": 480,
+          "scalePercent": 150,
+          "label": "compact"
+        },
+        {
+          "widthDip": 480,
+          "heightDip": 352,
+          "scalePercent": 200,
+          "label": "ultra-compact"
+        }
+      ]
+    }
+  },
+  "schemaVersion": 1
+}

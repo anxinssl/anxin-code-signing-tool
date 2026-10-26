@@ -1,0 +1,309 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="安信证书签名工具"
+           Manufacturer="CodeSigner"
+           Version="$(var.InstallerProductVersion)"
+           ProductCode="$(var.InstallerProductCode)"
+           UpgradeCode="$(var.InstallerUpgradeCode)">
+    <SummaryInformation Description="安信证书签名工具 - 支持 PE、Windows 安装包、CAB/CAT、AppX/MSIX 与脚本签名" />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+    <MajorUpgrade DowngradeErrorMessage="此版本低于已安装的版本，无法降级。"
+                  Schedule="afterInstallInitialize" />
+<?if $(var.LifecycleTestVariant) = Rollback ?>
+    <Property Id="CODESIGNER_TEST_FORCE_ROLLBACK" Secure="yes" />
+    <Launch Condition='Installed OR (WIX_UPGRADE_DETECTED AND CODESIGNER_TEST_FORCE_ROLLBACK = "1")'
+            Message="此 MSI 仅用于已安装旧版本上的显式回滚测试。" />
+    <CustomAction Id="ForceLifecycleRollback"
+                  Error="CodeSigner lifecycle rollback test: controlled failure after InstallFiles." />
+    <InstallExecuteSequence>
+      <Custom Action="ForceLifecycleRollback"
+              After="InstallFiles"
+              Condition='NOT Installed AND WIX_UPGRADE_DETECTED AND CODESIGNER_TEST_FORCE_ROLLBACK = "1"' />
+    </InstallExecuteSequence>
+<?endif?>
+    <Property Id="WINDOWSBUILDNUMBER" Secure="yes">
+      <RegistrySearch Id="WindowsBuildNumberSearch"
+                      Root="HKLM"
+                      Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+                      Name="CurrentBuildNumber"
+                      Type="raw" />
+    </Property>
+    <Launch Condition="Installed OR WINDOWSBUILDNUMBER &gt;= 10240"
+            Message="安信证书签名工具需要 Windows 10 或 Windows 11。" />
+    <Launch Condition="Installed OR VersionNT64"
+            Message="安信证书签名工具需要 64 位 Windows。" />
+    <Launch Condition="Installed OR MsiNTProductType = 1"
+            Message="安信证书签名工具仅支持 Windows 工作站，不支持 Windows Server。" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon" />
+    <Property Id="ARPCONTACT" Value="CodeSigner" />
+    <Property Id="ARPCOMMENTS" Value="支持 PE、Windows 安装包、CAB/CAT、AppX/MSIX 与脚本签名的安信证书签名工具" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/codesigner" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/codesigner" />
+    <Property Id="ARPNOREPAIR" Value="1" />
+    <Property Id="ARPNOMODIFY" Value="1" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <Property Id="DefaultUIFont" Value="CodeSigner_Font_Normal" />
+    <Property Id="ErrorDialog" Value="ErrorDlg" />
+    <Icon Id="AppIcon" SourceFile="../../src/CodeSigner.App/Assets/CodeSigner.ico" />
+    <Binary Id="ErrorDialogIcon" SourceFile="../../src/CodeSigner.App/Assets/CodeSigner.ico" />
+    <Binary Id="InstallerSidePanel" SourceFile="Assets/InstallerSidePanel.bmp" />
+    <Binary Id="InstallerPanelFill" SourceFile="Assets/InstallerPanelFill.bmp" />
+
+    <UI>
+      <TextStyle Id="CodeSigner_Font_Normal" FaceName="Microsoft YaHei UI" Size="9" />
+      <Dialog Id="WelcomeDlg" Width="370" Height="270" Title="[ProductName] - 安装" NoMinimize="yes">
+        <Control Id="SidePanel" Type="Bitmap" X="0" Y="0" Width="121" Height="243" Text="InstallerSidePanel" />
+        <Control Id="BodyPanel" Type="Bitmap" X="121" Y="0" Width="249" Height="243" Text="InstallerPanelFill" />
+        <Control Id="BrandTitle" Type="Text" X="14" Y="16" Width="61" Height="22" Disabled="yes" Hidden="yes" Text="[ProductName]" />
+        <Control Id="HeaderSeparator" Type="Line" X="121" Y="44" Width="249" Height="1" Disabled="yes" Hidden="yes" />
+        <Control Id="FooterSeparator" Type="Line" X="0" Y="243" Width="370" Height="1" />
+        <Control Id="Title" Type="Text" X="135" Y="14" Width="220" Height="18" Transparent="yes" Text="欢迎使用 [ProductName] 安装向导" />
+        <Control Id="IntroText" Type="Text" X="135" Y="56" Width="220" Height="12" Transparent="yes" Text="此向导将引导您完成 [ProductName] 的安装。" />
+        <Control Id="CloseAppsText" Type="Text" X="135" Y="72" Width="220" Height="12" Transparent="yes" Text="在安装之前，请先关闭其他所有应用程序。" />
+        <Control Id="UpdateFilesText" Type="Text" X="135" Y="84" Width="220" Height="12" Transparent="yes" Text="这将确保安装程序能够更新所需的系统文件，" />
+        <Control Id="RestartText" Type="Text" X="135" Y="96" Width="220" Height="12" Transparent="yes" Text="从而避免在安装后重新启动计算机。" />
+        <Control Id="NextHint" Type="Text" X="135" Y="116" Width="220" Height="12" Transparent="yes" Text="单击“下一步”继续。" />
+        <Control Id="NextButton" Type="PushButton" X="236" Y="250" Width="56" Height="17" Default="yes" Text="下一步(&amp;N) &gt;">
+          <Publish Event="NewDialog" Value="InstallDirectoryDlg" />
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="304" Y="250" Width="56" Height="17" Cancel="yes" Text="取消(&amp;C)">
+          <Publish Event="EndDialog" Value="Exit" />
+        </Control>
+      </Dialog>
+
+      <Dialog Id="InstallDirectoryDlg" Width="370" Height="270" Title="[ProductName] - 安装位置" NoMinimize="yes">
+        <Control Id="HeaderPanel" Type="Bitmap" X="0" Y="0" Width="370" Height="44" Text="InstallerPanelFill" />
+        <Control Id="BrandTitle" Type="Text" X="14" Y="16" Width="61" Height="22" Disabled="yes" Hidden="yes" Text="[ProductName]" />
+        <Control Id="HeaderSeparator" Type="Line" X="0" Y="44" Width="370" Height="1" />
+        <Control Id="FooterSeparator" Type="Line" X="0" Y="243" Width="370" Height="1" />
+        <Control Id="Title" Type="Text" X="12" Y="7" Width="250" Height="14" Transparent="yes" Text="选择安装位置" />
+        <Control Id="Description" Type="Text" X="18" Y="25" Width="330" Height="14" Transparent="yes" Text="选择 [ProductName] 的安装目录。" />
+        <Control Id="PathLabel" Type="Text" X="28" Y="132" Width="334" Height="12" Transparent="yes" Text="安装目录：" />
+        <Control Id="InstallPath" Type="PathEdit" X="28" Y="154" Width="246" Height="18" Property="WIXUI_INSTALLDIR" Indirect="yes" />
+        <Control Id="BrowseButton" Type="PushButton" X="282" Y="154" Width="70" Height="18" Text="浏览...">
+          <Publish Property="_BrowseProperty" Value="[WIXUI_INSTALLDIR]" />
+          <Publish Event="SpawnDialog" Value="BrowseDlg" Order="2" />
+        </Control>
+        <Control Id="BackButton" Type="PushButton" X="180" Y="250" Width="56" Height="17" Text="上一步">
+          <Publish Event="NewDialog" Value="WelcomeDlg" />
+        </Control>
+        <Control Id="InstallButton" Type="PushButton" X="236" Y="250" Width="56" Height="17" Default="yes" Text="安装">
+          <Publish Event="SetTargetPath" Value="[WIXUI_INSTALLDIR]" />
+          <Publish Event="EndDialog" Value="Return" Order="2" />
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="304" Y="250" Width="56" Height="17" Cancel="yes" Text="取消">
+          <Publish Event="EndDialog" Value="Exit" />
+        </Control>
+      </Dialog>
+
+      <Dialog Id="BrowseDlg" Width="370" Height="270" Title="[ProductName] - 浏览安装目录" NoMinimize="yes">
+        <Control Id="HeaderPanel" Type="Bitmap" X="0" Y="0" Width="370" Height="44" Text="InstallerPanelFill" />
+        <Control Id="BrandTitle" Type="Text" X="14" Y="16" Width="61" Height="22" Disabled="yes" Hidden="yes" Text="[ProductName]" />
+        <Control Id="HeaderSeparator" Type="Line" X="0" Y="44" Width="370" Height="1" />
+        <Control Id="FooterSeparator" Type="Line" X="0" Y="243" Width="370" Height="1" />
+        <Control Id="Title" Type="Text" X="12" Y="7" Width="250" Height="14" Transparent="yes" Text="浏览安装目录" />
+        <Control Id="Description" Type="Text" X="18" Y="25" Width="330" Height="14" Transparent="yes" Text="选择 [ProductName] 的安装目录。" />
+        <Control Id="DirectoryCombo" Type="DirectoryCombo" X="18" Y="54" Width="334" Height="12" Property="_BrowseProperty" Indirect="yes" />
+        <Control Id="DirectoryList" Type="DirectoryList" X="18" Y="72" Width="334" Height="130" Property="_BrowseProperty" Indirect="yes" />
+        <Control Id="PathEdit" Type="PathEdit" X="18" Y="210" Width="334" Height="18" Property="_BrowseProperty" Indirect="yes" />
+        <Control Id="OkButton" Type="PushButton" X="236" Y="250" Width="56" Height="17" Default="yes" Text="确定">
+          <Publish Event="SetTargetPath" Value="[_BrowseProperty]" />
+          <Publish Event="EndDialog" Value="Return" Order="2" />
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" X="304" Y="250" Width="56" Height="17" Cancel="yes" Text="取消">
+          <Publish Event="EndDialog" Value="Return" />
+        </Control>
+      </Dialog>
+
+      <Dialog Id="ErrorDlg" Width="370" Height="150" Title="[ProductName] - 错误" ErrorDialog="yes" NoMinimize="yes">
+        <Control Id="ErrorText" Type="Text" X="62" Y="20" Width="286" Height="66" TabSkip="no" NoPrefix="yes" Text="[ErrorMessage]" />
+        <Control Id="ErrorIcon" Type="Icon" X="24" Y="20" Width="24" Height="24" Text="ErrorDialogIcon" />
+        <Control Id="Y" Type="PushButton" X="292" Y="116" Width="56" Height="17" TabSkip="yes" Text="是">
+          <Publish Event="EndDialog" Value="ErrorYes" />
+        </Control>
+        <Control Id="A" Type="PushButton" X="292" Y="116" Width="56" Height="17" TabSkip="yes" Text="中止">
+          <Publish Event="EndDialog" Value="ErrorAbort" />
+        </Control>
+        <Control Id="C" Type="PushButton" X="292" Y="116" Width="56" Height="17" TabSkip="yes" Text="取消">
+          <Publish Event="EndDialog" Value="ErrorCancel" />
+        </Control>
+        <Control Id="I" Type="PushButton" X="292" Y="116" Width="56" Height="17" TabSkip="yes" Text="忽略">
+          <Publish Event="EndDialog" Value="ErrorIgnore" />
+        </Control>
+        <Control Id="N" Type="PushButton" X="292" Y="116" Width="56" Height="17" TabSkip="yes" Text="否">
+          <Publish Event="EndDialog" Value="ErrorNo" />
+        </Control>
+        <Control Id="O" Type="PushButton" X="292" Y="116" Width="56" Height="17" TabSkip="yes" Default="yes" Text="确定">
+          <Publish Event="EndDialog" Value="ErrorOk" />
+        </Control>
+        <Control Id="R" Type="PushButton" X="292" Y="116" Width="56" Height="17" TabSkip="yes" Text="重试">
+          <Publish Event="EndDialog" Value="ErrorRetry" />
+        </Control>
+      </Dialog>
+
+      <Dialog Id="FilesInUse" Width="370" Height="270" Title="[ProductName] - 文件正在使用" KeepModeless="yes" NoMinimize="yes">
+        <Control Id="HeaderPanel" Type="Bitmap" X="0" Y="0" Width="370" Height="44" Text="InstallerPanelFill" />
+        <Control Id="HeaderSeparator" Type="Line" X="0" Y="44" Width="370" Height="1" />
+        <Control Id="FooterSeparator" Type="Line" X="0" Y="243" Width="370" Height="1" />
+        <Control Id="Title" Type="Text" X="12" Y="7" Width="280" Height="14" Transparent="yes" Text="需要关闭正在使用的文件" />
+        <Control Id="Description" Type="Text" X="18" Y="25" Width="334" Height="14" Transparent="yes" Text="请关闭下列程序，然后重试。" />
+        <Control Id="ProcessList" Type="ListBox" X="18" Y="68" Width="334" Height="140" Property="FileInUseProcess" Sunken="yes" />
+        <Control Id="Exit" Type="PushButton" X="166" Y="250" Width="56" Height="17" Text="退出">
+          <Publish Event="EndDialog" Value="Exit" />
+        </Control>
+        <Control Id="Ignore" Type="PushButton" X="235" Y="250" Width="56" Height="17" Text="忽略">
+          <Publish Event="EndDialog" Value="Ignore" />
+        </Control>
+        <Control Id="Retry" Type="PushButton" X="304" Y="250" Width="56" Height="17" Default="yes" Cancel="yes" Text="重试">
+          <Publish Event="EndDialog" Value="Retry" />
+        </Control>
+      </Dialog>
+
+      <Dialog Id="InstallProgressDlg" Width="370" Height="270" Title="[ProductName] - 安装、升级或维护" Modeless="yes" NoMinimize="yes">
+        <Control Id="HeaderPanel" Type="Bitmap" X="0" Y="0" Width="370" Height="44" Text="InstallerPanelFill" />
+        <Control Id="BrandTitle" Type="Text" X="14" Y="16" Width="61" Height="22" Disabled="yes" Hidden="yes" Text="[ProductName]" />
+        <Control Id="HeaderSeparator" Type="Line" X="0" Y="44" Width="370" Height="1" />
+        <Control Id="FooterSeparator" Type="Line" X="0" Y="243" Width="370" Height="1" />
+        <Control Id="Title" Type="Text" X="12" Y="7" Width="340" Height="14" Transparent="yes" Text="正在安装、升级或维护 [ProductName]" />
+        <Control Id="Status" Type="Text" X="18" Y="25" Width="334" Height="14" Transparent="yes" Text="Windows Installer 正在应用安装、升级或维护操作，请稍候..." />
+        <Control Id="TargetLabel" Type="Text" X="18" Y="72" Width="334" Height="12" Transparent="yes" Text="安装目录：" />
+        <Control Id="TargetPath" Type="Text" X="18" Y="86" Width="334" Height="14" Transparent="yes" Text="[INSTALLFOLDER]" />
+        <Control Id="ProgressBar" Type="ProgressBar" X="18" Y="110" Width="334" Height="13" ProgressBlocks="yes">
+          <Subscribe Event="SetProgress" Attribute="Progress" />
+        </Control>
+        <Control Id="BackButton" Type="PushButton" X="180" Y="250" Width="56" Height="17" Disabled="yes" Text="上一步" />
+        <Control Id="NextButton" Type="PushButton" X="236" Y="250" Width="56" Height="17" Disabled="yes" Text="下一步" />
+        <Control Id="CancelButton" Type="PushButton" X="304" Y="250" Width="56" Height="17" Disabled="yes" Text="取消" />
+      </Dialog>
+
+      <Dialog Id="ExitDialog" Width="370" Height="270" Title="[ProductName] - 操作完成" NoMinimize="yes">
+        <Control Id="SidePanel" Type="Bitmap" X="0" Y="0" Width="121" Height="243" Text="InstallerSidePanel" />
+        <Control Id="BodyPanel" Type="Bitmap" X="121" Y="0" Width="249" Height="243" Text="InstallerPanelFill" />
+        <Control Id="BrandTitle" Type="Text" X="14" Y="16" Width="61" Height="22" Disabled="yes" Hidden="yes" Text="[ProductName]" />
+        <Control Id="HeaderSeparator" Type="Line" X="121" Y="44" Width="249" Height="1" Disabled="yes" Hidden="yes" />
+        <Control Id="FooterSeparator" Type="Line" X="0" Y="243" Width="370" Height="1" />
+        <Control Id="Title" Type="Text" X="135" Y="14" Width="220" Height="18" Transparent="yes" Text="操作完成" />
+        <Control Id="Description" Type="Text" X="135" Y="64" Width="220" Height="28" Transparent="yes" Text="[ProductName] 的操作已完成。" />
+        <Control Id="CloseButton" Type="PushButton" X="304" Y="250" Width="56" Height="17" Default="yes" Cancel="yes" Text="关闭">
+          <Publish Event="EndDialog" Value="Return" />
+        </Control>
+      </Dialog>
+
+      <Dialog Id="UserExit" Width="370" Height="270" Title="[ProductName] - 已取消" NoMinimize="yes">
+        <Control Id="SidePanel" Type="Bitmap" X="0" Y="0" Width="121" Height="243" Text="InstallerSidePanel" />
+        <Control Id="BodyPanel" Type="Bitmap" X="121" Y="0" Width="249" Height="243" Text="InstallerPanelFill" />
+        <Control Id="FooterSeparator" Type="Line" X="0" Y="243" Width="370" Height="1" />
+        <Control Id="Title" Type="Text" X="135" Y="14" Width="220" Height="18" Transparent="yes" Text="操作已取消" />
+        <Control Id="Description" Type="Text" X="135" Y="64" Width="220" Height="28" Transparent="yes" Text="[ProductName] 未完成任何操作。" />
+        <Control Id="CloseButton" Type="PushButton" X="304" Y="250" Width="56" Height="17" Default="yes" Cancel="yes" Text="关闭">
+          <Publish Event="EndDialog" Value="Exit" />
+        </Control>
+      </Dialog>
+
+      <Dialog Id="FatalError" Width="370" Height="270" Title="[ProductName] - 操作失败" NoMinimize="yes">
+        <Control Id="SidePanel" Type="Bitmap" X="0" Y="0" Width="121" Height="243" Text="InstallerSidePanel" />
+        <Control Id="BodyPanel" Type="Bitmap" X="121" Y="0" Width="249" Height="243" Text="InstallerPanelFill" />
+        <Control Id="FooterSeparator" Type="Line" X="0" Y="243" Width="370" Height="1" />
+        <Control Id="Title" Type="Text" X="135" Y="14" Width="220" Height="18" Transparent="yes" Text="操作未完成" />
+        <Control Id="Description" Type="Text" X="135" Y="64" Width="220" Height="42" Transparent="yes" Text="[ProductName] 未能完成操作。请查看错误提示后重试。" />
+        <Control Id="CloseButton" Type="PushButton" X="304" Y="250" Width="56" Height="17" Default="yes" Cancel="yes" Text="关闭">
+          <Publish Event="EndDialog" Value="Exit" />
+        </Control>
+      </Dialog>
+
+      <Dialog Id="UninstallProgressDlg" Width="370" Height="270" Title="[ProductName] - 卸载" Modeless="yes" NoMinimize="yes">
+        <Control Id="HeaderPanel" Type="Bitmap" X="0" Y="0" Width="370" Height="44" Text="InstallerPanelFill" />
+        <Control Id="BrandTitle" Type="Text" X="14" Y="16" Width="61" Height="22" Disabled="yes" Hidden="yes" Text="[ProductName]" />
+        <Control Id="HeaderSeparator" Type="Line" X="0" Y="44" Width="370" Height="1" />
+        <Control Id="FooterSeparator" Type="Line" X="0" Y="243" Width="370" Height="1" />
+        <Control Id="Title" Type="Text" X="12" Y="7" Width="340" Height="14" Transparent="yes" Text="正在卸载 [ProductName]" />
+        <Control Id="Status" Type="Text" X="18" Y="25" Width="334" Height="14" Transparent="yes" Text="Windows Installer 正在移除程序文件，请稍候..." />
+        <Control Id="ProgressBar" Type="ProgressBar" X="18" Y="72" Width="334" Height="13" ProgressBlocks="yes">
+          <Subscribe Event="SetProgress" Attribute="Progress" />
+        </Control>
+        <Control Id="BackButton" Type="PushButton" X="180" Y="250" Width="56" Height="17" Disabled="yes" Text="上一步" />
+        <Control Id="NextButton" Type="PushButton" X="236" Y="250" Width="56" Height="17" Disabled="yes" Text="下一步" />
+        <Control Id="CancelButton" Type="PushButton" X="304" Y="250" Width="56" Height="17" Disabled="yes" Text="取消" />
+      </Dialog>
+
+      <InstallUISequence>
+        <Show Dialog="WelcomeDlg" Sequence="1297" Condition="NOT Installed" />
+        <Show Dialog="InstallProgressDlg" Sequence="1298" Condition='NOT (REMOVE=&quot;ALL&quot; AND Installed)' />
+        <Show Dialog="UninstallProgressDlg" Sequence="1299" Condition='REMOVE=&quot;ALL&quot; AND Installed' />
+        <Show Dialog="ExitDialog" OnExit="success" />
+        <Show Dialog="UserExit" OnExit="cancel" />
+        <Show Dialog="FatalError" OnExit="error" />
+      </InstallUISequence>
+      <AdminUISequence>
+        <Show Dialog="ExitDialog" OnExit="success" />
+        <Show Dialog="UserExit" OnExit="cancel" />
+        <Show Dialog="FatalError" OnExit="error" />
+      </AdminUISequence>
+    </UI>
+
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="CodeSigner">
+        <Component Id="AppComponent" Guid="*" Bitness="always64">
+          <File Source="../../artifacts/staging/CodeSigner.App.exe" KeyPath="yes" />
+        </Component>
+        <Component Id="WorkerComponent" Guid="*" Bitness="always64">
+          <File Source="../../artifacts/staging/CodeSigner.Worker.exe" KeyPath="yes" />
+        </Component>
+        <Component Id="NoticesComponent" Guid="*" Bitness="always64">
+          <File Source="../../artifacts/staging/THIRD-PARTY-NOTICES.txt" KeyPath="yes" />
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="AppShortcutsDir" Name="安信证书签名工具">
+        <Component Id="ShortcutComponent" Guid="B10A5C3D-8F4E-4A21-9C7D-1E2F3A4B5C6D" Bitness="always64">
+          <Shortcut Id="AppShortcut"
+                    Directory="AppShortcutsDir"
+                    Name="安信证书签名工具"
+                    Target="[INSTALLFOLDER]CodeSigner.App.exe"
+                    WorkingDirectory="INSTALLFOLDER"
+                    Icon="AppIcon" />
+          <Shortcut Id="AppShortcutUninstall"
+                    Directory="AppShortcutsDir"
+                    Name="卸载 安信证书签名工具"
+                    Target="[System64Folder]msiexec.exe"
+                    Arguments="/x [ProductCode]" />
+          <RemoveFolder Id="RemoveAppShortcutsDir" Directory="AppShortcutsDir" On="uninstall" />
+          <RegistryValue Root="HKCU"
+                         Key="Software\CodeSigner"
+                         Name="installed"
+                         Value="1"
+                         Type="integer"
+                         KeyPath="yes" />
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="DesktopFolder">
+      <Component Id="DesktopShortcutComponent" Guid="D4C6D6F1-6A26-4C15-8A0B-44A5E8CC64F3" Bitness="always64">
+        <Shortcut Id="DesktopAppShortcut"
+                  Directory="DesktopFolder"
+                  Name="安信证书签名工具"
+                  Target="[INSTALLFOLDER]CodeSigner.App.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="AppIcon" />
+        <RegistryValue Root="HKCU"
+                       Key="Software\CodeSigner"
+                       Name="desktopShortcutInstalled"
+                       Value="1"
+                       Type="integer"
+                       KeyPath="yes" />
+      </Component>
+    </StandardDirectory>
+
+    <Feature Id="MainFeature" Title="安信证书签名工具" Level="1">
+      <ComponentRef Id="AppComponent" />
+      <ComponentRef Id="NoticesComponent" />
+      <ComponentRef Id="ShortcutComponent" />
+      <ComponentRef Id="DesktopShortcutComponent" />
+    </Feature>
+    <Feature Id="WorkerFeature" Title="CodeSigner Worker" Level="1">
+      <ComponentRef Id="WorkerComponent" />
+    </Feature>
+  </Package>
+</Wix>

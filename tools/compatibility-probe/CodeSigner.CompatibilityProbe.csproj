@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/CodeSigner.Core/CodeSigner.Core.csproj" />
+    <ProjectReference Include="../../src/CodeSigner.Windows/CodeSigner.Windows.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="CodeSigner.IntegrationTests" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,19 @@
+<Project>
+  <Target Name="VerifyCodeSignerReleasePublishIdentity"
+          BeforeTargets="PrepareForPublish"
+          Condition="'$(Configuration)' == 'Release' and '$(DesignTimeBuild)' != 'true' and ('$(MSBuildProjectName)' == 'CodeSigner.App' or '$(MSBuildProjectName)' == 'CodeSigner.Worker')">
+    <Error Condition="'$(Version)' != '$(CodeSignerProductVersion)' or '$(AssemblyVersion)' != '$(CodeSignerAssemblyVersion)' or '$(FileVersion)' != '$(CodeSignerFileVersion)' or '$(InformationalVersion)' != '$(CodeSignerInformationalVersion)'"
+           Text="CodeSigner publish identity diverges from the central release identity." />
+    <Exec Command="node tools/release/verify-release-version.mjs --check"
+          WorkingDirectory="$(MSBuildThisFileDirectory)" />
+  </Target>
+
+  <Target Name="VerifyCodeSignerReleaseInstallerIdentity"
+          BeforeTargets="CoreCompile"
+          Condition="'$(Configuration)' == 'Release' and '$(DesignTimeBuild)' != 'true' and '$(MSBuildProjectExtension)' == '.wixproj' and '$(LifecycleTestVariant)' == 'Baseline'">
+    <Error Condition="'$(InstallerProductVersion)' != '$(CodeSignerProductVersion)' or '$(InstallerProductCode)' != '$(CodeSignerProductCode)' or '$(InstallerUpgradeCode)' != '$(CodeSignerUpgradeCode)'"
+           Text="CodeSigner installer identity diverges from the central release identity." />
+    <Exec Command="node tools/release/verify-release-version.mjs --check"
+          WorkingDirectory="$(MSBuildThisFileDirectory)" />
+  </Target>
+</Project>

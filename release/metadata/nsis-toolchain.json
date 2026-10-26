@@ -1,0 +1,11 @@
+{
+  "distribution": "electron-userland/electron-builder-binaries",
+  "release": "nsis@2.0.2",
+  "nsisSourceVersion": "3.12",
+  "sourceCommit": "e3f60402bcdf7be822d159b531c6e38ddf32de12",
+  "compilerReportedVersion": "v09-Oct-2026.cvs",
+  "archive": "nsis-bundle-3.12.tar.gz",
+  "url": "https://github.com/electron-userland/electron-builder-binaries/releases/download/nsis%402.0.2/nsis-bundle-3.12.tar.gz",
+  "sha256": "83d80ee578cb19008b2a99e4fccfb5e7c023cc9bb791eb38f6048fccc875f62c",
+  "notes": "Pinned maintainer-built distribution; not the SourceForge 3.13 installer. Build tools stay in ignored .local and are not shipped as application payload."
+}

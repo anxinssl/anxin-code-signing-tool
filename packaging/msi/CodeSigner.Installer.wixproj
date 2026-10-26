@@ -1,0 +1,34 @@
+<Project Sdk="WixToolset.Sdk/6.0.2">
+  <PropertyGroup>
+    <OutputType>Package</OutputType>
+    <Platform>x64</Platform>
+    <InstallerPlatform>x64</InstallerPlatform>
+    <SuppressValidation>True</SuppressValidation>
+    <InstallerProductVersion>$(CodeSignerProductVersion)</InstallerProductVersion>
+    <InstallerProductCode>$(CodeSignerProductCode)</InstallerProductCode>
+    <InstallerUpgradeCode>$(CodeSignerUpgradeCode)</InstallerUpgradeCode>
+    <LifecycleTestVariant Condition="'$(LifecycleTestVariant)' == ''">Baseline</LifecycleTestVariant>
+    <DefineConstants>$(DefineConstants);InstallerProductVersion=$(InstallerProductVersion);InstallerProductCode=$(InstallerProductCode);InstallerUpgradeCode=$(InstallerUpgradeCode);LifecycleTestVariant=$(LifecycleTestVariant)</DefineConstants>
+    <CodeSignerInstallerStagingDirectory>$(MSBuildProjectDirectory)\..\..\artifacts\staging\</CodeSignerInstallerStagingDirectory>
+    <CodeSignerInstallerAppPublishDirectory>$(MSBuildProjectDirectory)\..\..\.build\installer-publish\app\</CodeSignerInstallerAppPublishDirectory>
+    <CodeSignerInstallerWorkerPublishDirectory>$(MSBuildProjectDirectory)\..\..\.build\installer-publish\worker\</CodeSignerInstallerWorkerPublishDirectory>
+    <CodeSignerInstallerArtifactsDirectory>$(MSBuildProjectDirectory)\..\..\.build\installer-artifacts\$(CodeSignerProductVersion)</CodeSignerInstallerArtifactsDirectory>
+    <CodeSignerDotNetHost Condition="'$(DOTNET_HOST_PATH)' != ''">$(DOTNET_HOST_PATH)</CodeSignerDotNetHost>
+    <CodeSignerDotNetHost Condition="'$(CodeSignerDotNetHost)' == ''">dotnet</CodeSignerDotNetHost>
+  </PropertyGroup>
+
+  <Target Name="StageCodeSignerInstallerPayload" BeforeTargets="CoreCompile">
+    <Exec Command="node &quot;$(MSBuildProjectDirectory)\..\..\scripts\build-third-party-notices.mjs&quot; --check" />
+    <!-- Keep publish restore/build state out of the framework-dependent solution graph. -->
+    <Exec Command="&quot;$(CodeSignerDotNetHost)&quot; publish &quot;$(MSBuildProjectDirectory)\..\..\src\CodeSigner.App\CodeSigner.App.csproj&quot; -c Release -r win-x64 --self-contained true --artifacts-path &quot;$(CodeSignerInstallerArtifactsDirectory)&quot; -p:CodeSignerInstallerPublish=true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:RestoreLockedMode=true -o &quot;$(CodeSignerInstallerAppPublishDirectory).&quot;" />
+    <Exec Command="&quot;$(CodeSignerDotNetHost)&quot; publish &quot;$(MSBuildProjectDirectory)\..\..\src\CodeSigner.Worker\CodeSigner.Worker.csproj&quot; -c Release -r win-x64 --self-contained true --artifacts-path &quot;$(CodeSignerInstallerArtifactsDirectory)&quot; -p:CodeSignerInstallerPublish=true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:RestoreLockedMode=true -o &quot;$(CodeSignerInstallerWorkerPublishDirectory).&quot;" />
+    <Exec Command="node &quot;$(MSBuildProjectDirectory)\..\..\tools\release\verify-self-contained-bundle.mjs&quot; --app &quot;$(CodeSignerInstallerAppPublishDirectory)CodeSigner.App.exe&quot; --worker &quot;$(CodeSignerInstallerWorkerPublishDirectory)CodeSigner.Worker.exe&quot;" />
+    <MakeDir Directories="$(CodeSignerInstallerStagingDirectory)" />
+    <Copy SourceFiles="$(CodeSignerInstallerAppPublishDirectory)CodeSigner.App.exe"
+          DestinationFiles="$(CodeSignerInstallerStagingDirectory)CodeSigner.App.exe" />
+    <Copy SourceFiles="$(CodeSignerInstallerWorkerPublishDirectory)CodeSigner.Worker.exe"
+          DestinationFiles="$(CodeSignerInstallerStagingDirectory)CodeSigner.Worker.exe" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\THIRD-PARTY-NOTICES.txt"
+          DestinationFiles="$(CodeSignerInstallerStagingDirectory)THIRD-PARTY-NOTICES.txt" />
+  </Target>
+</Project>

@@ -1,0 +1,1268 @@
+<Window x:Class="CodeSigner.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:CodeSigner.App"
+        xmlns:automation="clr-namespace:System.Windows.Automation;assembly=PresentationCore"
+        Title="安信代码签名证书工具"
+        Style="{StaticResource {x:Type Window}}"
+        Icon="Assets/CodeSigner.ico"
+        Width="1180"
+        Height="940"
+        WindowStartupLocation="CenterScreen"
+        AllowDrop="True"
+        PreviewDragOver="Window_PreviewDragOver"
+        Drop="Window_Drop"
+        PreviewKeyDown="Window_PreviewKeyDown"
+        AutomationProperties.AutomationId="SigningWorkbenchWindow"
+        AutomationProperties.Name="安信代码签名证书工具签名工作台">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Style x:Key="CompactQueueHeaderStyle"
+               TargetType="DataGridColumnHeader"
+               BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+            <Setter Property="Padding" Value="4,8" />
+        </Style>
+        <Style x:Key="CompactQueueCellTextStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="4,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+            <Setter Property="LineHeight" Value="16" />
+            <Setter Property="MaxHeight" Value="32" />
+        </Style>
+        <DataTemplate x:Key="CertificateOptionTemplate">
+            <TextBlock Text="{Binding DisplayName}"
+                       TextTrimming="CharacterEllipsis"
+                       ToolTip="{Binding AutomationName}"
+                       AutomationProperties.Name="{Binding AutomationName}" />
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid x:Name="RootGrid"
+          Background="{DynamicResource Brush.PageBackground}"
+          Margin="{StaticResource Inset.Window.Content}"
+          KeyboardNavigation.TabNavigation="Continue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border x:Name="AppHeader" Grid.Row="0" Margin="0,0,0,16" Padding="4,8" Background="Transparent">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Width="40" Height="40" Background="Transparent">
+                        <Image Width="36"
+                               Height="36"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Focusable="False"
+                               IsHitTestVisible="False"
+                               Source="Assets/CodeSigner.png"
+                               Stretch="Uniform"
+                               AutomationProperties.Name="安信 SSL 证书" />
+                    </Border>
+                    <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                        <TextBlock x:Name="WorkbenchTitle"
+                                   FontSize="{StaticResource Typography.WindowHeading.Size}"
+                                   FontWeight="SemiBold"
+                                   Text="安信代码签名证书工具"
+                                   automation:AutomationProperties.HeadingLevel="Level1" />
+                        <TextBlock Margin="0,1,0,0"
+                                   FontSize="{StaticResource Typography.Caption.Size}"
+                                   Foreground="{DynamicResource Color.Text.Secondary}"
+                                   Text="安全签名工作台" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border x:Name="ReadinessBand"
+                Grid.Row="1"
+                Margin="0,0,0,12"
+                Style="{StaticResource BandBorderStyle}"
+                Background="{DynamicResource Brush.ReadinessBackground}"
+                Padding="{StaticResource Inset.Control.Standard}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="15*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="9*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" ClipToBounds="True" ToolTip="{Binding WorkstationStatus}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Width="{StaticResource Metric.Icon.Command.Size}"
+                           Height="{StaticResource Metric.Icon.Command.Size}"
+                           Focusable="False"
+                           Source="{StaticResource Icon.Status.Workstation}"
+                           Stretch="Uniform"
+                           AutomationProperties.AutomationId="ReadinessWorkstation"
+                           AutomationProperties.Name="{Binding WorkstationStatus}" />
+                    <TextBlock x:Name="WorkstationStatusText"
+                               Grid.Column="1"
+                               Margin="8,0,4,0"
+                               VerticalAlignment="Center"
+                               Text="{Binding WorkstationStatus}"
+                               TextTrimming="CharacterEllipsis"
+                               AutomationProperties.AutomationId="ReadinessWorkstationText" />
+                </Grid>
+                <Grid Grid.Column="1" ClipToBounds="True" ToolTip="{Binding NativeApiStatus}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Width="{StaticResource Metric.Icon.Command.Size}"
+                           Height="{StaticResource Metric.Icon.Command.Size}"
+                           Focusable="False"
+                           Source="{StaticResource Icon.Status.NativeApi}"
+                           Stretch="Uniform"
+                           AutomationProperties.AutomationId="ReadinessNativeApi"
+                           AutomationProperties.Name="{Binding NativeApiStatus}" />
+                    <TextBlock x:Name="NativeApiStatusText"
+                               Grid.Column="1"
+                               Margin="8,0,4,0"
+                               VerticalAlignment="Center"
+                               Text="{Binding NativeApiStatus}"
+                               TextTrimming="CharacterEllipsis"
+                               AutomationProperties.AutomationId="ReadinessNativeApiText" />
+                </Grid>
+                <Grid Grid.Column="2" ClipToBounds="True" ToolTip="{Binding CertificateStatus}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Width="{StaticResource Metric.Icon.Command.Size}"
+                           Height="{StaticResource Metric.Icon.Command.Size}"
+                           Focusable="False"
+                           Source="{StaticResource Icon.Status.Certificate}"
+                           Stretch="Uniform"
+                           AutomationProperties.AutomationId="ReadinessCertificates"
+                           AutomationProperties.Name="{Binding CertificateStatus}" />
+                    <TextBlock x:Name="CertificateStatusText"
+                               Grid.Column="1"
+                               Margin="8,0,4,0"
+                               VerticalAlignment="Center"
+                               Text="{Binding CertificateStatus}"
+                               TextTrimming="CharacterEllipsis"
+                               AutomationProperties.AutomationId="ReadinessCertificatesText" />
+                </Grid>
+                <Grid Grid.Column="3" ClipToBounds="True" ToolTip="{Binding TimestampStatus}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Width="{StaticResource Metric.Icon.Command.Size}"
+                           Height="{StaticResource Metric.Icon.Command.Size}"
+                           Focusable="False"
+                           Source="{StaticResource Icon.Status.Timestamp}"
+                           Stretch="Uniform"
+                           AutomationProperties.AutomationId="TimestampStatus"
+                           AutomationProperties.Name="{Binding TimestampStatus}" />
+                    <TextBlock x:Name="TimestampStatusText"
+                               Grid.Column="1"
+                               Margin="8,0,0,0"
+                               VerticalAlignment="Center"
+                               Text="{Binding TimestampStatus}"
+                               TextTrimming="CharacterEllipsis"
+                               AutomationProperties.AutomationId="ReadinessTimestampText" />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Border x:Name="CommandBand" Grid.Row="2" Margin="0,0,0,12" Style="{StaticResource BandBorderStyle}" Padding="10,6">
+            <StackPanel>
+                <StackPanel x:Name="CommandActionsPanel" Orientation="Horizontal" Height="36" TextElement.FontSize="12">
+                    <Button x:Name="AddFilesButton"
+                            Width="88" Height="36" Padding="6,4"
+                            TabIndex="0"
+                            Style="{StaticResource CommandButtonStyle}"
+                            Click="AddFiles_Click"
+                            ToolTip="添加支持的签名文件到队列"
+                            AutomationProperties.AutomationId="AddFilesButton"
+                            AutomationProperties.Name="添加签名文件"
+                            AutomationProperties.HelpText="添加一个或多个支持的签名文件到队列">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.AddFile}" Stretch="Uniform" />
+                            <TextBlock Margin="6,0,0,0" VerticalAlignment="Center" Text="添加文件" />
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="AddFolderButton"
+                            Width="100" Height="36" Padding="6,4"
+                            TabIndex="1"
+                            Style="{StaticResource CommandButtonStyle}"
+                            Click="AddFolder_Click"
+                            ToolTip="添加包含支持签名文件的文件夹"
+                            AutomationProperties.AutomationId="AddFolderButton"
+                            AutomationProperties.Name="添加签名文件夹"
+                            AutomationProperties.HelpText="选择一个文件夹，系统自动识别其中支持的签名文件">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.AddFolder}" Stretch="Uniform" />
+                            <TextBlock Margin="6,0,0,0" VerticalAlignment="Center" Text="添加文件夹" />
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="RefreshButton"
+                            Width="116" Height="36" Padding="6,4"
+                            TabIndex="2"
+                            Style="{StaticResource CommandButtonStyle}"
+                            Command="{Binding RefreshCommand}"
+                            ToolTip="刷新并读取证书"
+                            AutomationProperties.AutomationId="RefreshButton"
+                            AutomationProperties.Name="刷新就绪状态"
+                            AutomationProperties.HelpText="重新检查 Windows 签名环境、代码签名证书和时间戳">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Refresh}" Stretch="Uniform" />
+                            <TextBlock x:Name="RefreshButtonLabel" Margin="6,0,0,0" VerticalAlignment="Center" Text="{Binding RefreshButtonText, FallbackValue=刷新证书}" />
+                        </StackPanel>
+                    </Button>
+                    <StackPanel x:Name="ExtendedActionsPanel" Orientation="Horizontal">
+                    <Border Width="1" Height="28" Margin="5,4,9,4" Background="{DynamicResource Color.Border.Subtle}" />
+                    <Button Width="96" Height="36" Padding="6,4" TabIndex="3"
+                            Style="{StaticResource CommandButtonStyle}"
+                            Command="{Binding RemoveCommand}"
+                            ToolTip="从队列中移除选中的项"
+                            AutomationProperties.AutomationId="RemoveButton"
+                            AutomationProperties.Name="从队列移除选中的签名文件"
+                            AutomationProperties.HelpText="仅从内存队列移除选中的项目，不删除源文件">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Remove}" Stretch="Uniform" />
+                            <TextBlock Margin="6,0,0,0" VerticalAlignment="Center" Text="移除选中" />
+                        </StackPanel>
+                    </Button>
+                    <Button TabIndex="4"
+                            Width="72" Height="36" Padding="6,4"
+                            Style="{StaticResource CommandButtonStyle}"
+                            Command="{Binding RetryCommand}"
+                            ToolTip="重试当前失败或暂停的文件"
+                            AutomationProperties.AutomationId="RetryButton"
+                            AutomationProperties.Name="重试失败或暂停的签名文件"
+                            AutomationProperties.HelpText="从原始文件重试失败或暂停的签名文件项目">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Retry}" Stretch="Uniform" />
+                            <TextBlock Margin="6,0,0,0" VerticalAlignment="Center" Text="重试" />
+                        </StackPanel>
+                    </Button>
+                    <Button TabIndex="5"
+                            Width="116" Height="36" Padding="6,4"
+                            Style="{StaticResource CommandButtonStyle}"
+                            Command="{Binding OpenOutputCommand}"
+                            ToolTip="打开输出目录"
+                            AutomationProperties.AutomationId="OpenOutputButton"
+                            AutomationProperties.Name="打开输出目录"
+                            AutomationProperties.HelpText="在文件资源管理器中打开当前输出目录">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.OpenOutput}" Stretch="Uniform" />
+                            <TextBlock Margin="6,0,0,0" VerticalAlignment="Center" Text="打开输出目录" />
+                        </StackPanel>
+                    </Button>
+                    </StackPanel>
+                    <Menu x:Name="ToolbarMenu" Width="60" Height="36" Margin="0,0,4,0"
+                          Background="Transparent" Foreground="{DynamicResource Color.Text.Secondary}" VerticalAlignment="Center">
+                        <MenuItem x:Name="ToolbarMore" Header="更多" Height="36" Padding="10,8" TabIndex="6"
+                                  AutomationProperties.AutomationId="ToolbarMoreButton"
+                                  AutomationProperties.Name="更多操作">
+                            <MenuItem x:Name="OverflowRemove" Header="移除选中" Command="{Binding RemoveCommand}"
+                                      AutomationProperties.AutomationId="ToolbarRemoveItem">
+                                <MenuItem.Icon><Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Remove}" /></MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem x:Name="OverflowRetry" Header="重试失败项" Command="{Binding RetryCommand}"
+                                      AutomationProperties.AutomationId="ToolbarRetryItem">
+                                <MenuItem.Icon><Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Retry}" /></MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem x:Name="OverflowOutput" Header="打开输出目录" Command="{Binding OpenOutputCommand}"
+                                      AutomationProperties.AutomationId="ToolbarOutputItem">
+                                <MenuItem.Icon><Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.OpenOutput}" /></MenuItem.Icon>
+                            </MenuItem>
+                            <Separator x:Name="OverflowSeparator" />
+                            <MenuItem Header="导出诊断信息" Command="{Binding ExportDiagnosticsCommand}"
+                                      ToolTip="导出诊断信息"
+                                      AutomationProperties.AutomationId="ExportDiagnosticsButton"
+                                      AutomationProperties.Name="导出诊断信息"
+                                      AutomationProperties.HelpText="导出不包含凭据和私钥的诊断文件">
+                                <MenuItem.Icon><Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.ExportDiagnostics}" Stretch="Uniform" /></MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem x:Name="OpenLogDirectoryButton" Header="打开日志目录" Command="{Binding OpenLogDirectoryCommand}"
+                                      ToolTip="打开本地日志目录"
+                                      AutomationProperties.AutomationId="OpenLogDirectoryButton"
+                                      AutomationProperties.Name="打开日志目录"
+                                      AutomationProperties.HelpText="在文件资源管理器中打开本机日志目录：%LOCALAPPDATA%\CodeSigner\Diagnostics">
+                                <MenuItem.Icon><Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.OpenLogs}" Stretch="Uniform" /></MenuItem.Icon>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+                    <Button x:Name="SettingsButton"
+                            Width="64" Height="36" Padding="6,4"
+                            TabIndex="8"
+                            Style="{StaticResource CommandButtonStyle}"
+                            Click="Settings_Click"
+                            ToolTip="打开设置（时间戳、诊断保留期等）"
+                            AutomationProperties.AutomationId="SettingsButton"
+                            AutomationProperties.Name="签名设置"
+                            AutomationProperties.HelpText="设置时间戳地址和诊断保留期限">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Settings}" Stretch="Uniform" />
+                            <TextBlock Margin="6,0,0,0" VerticalAlignment="Center" Text="设置" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <TextBlock x:Name="CertificateRefreshHint"
+                           Margin="4,6,4,2"
+                           Foreground="{DynamicResource Color.Text.Secondary}"
+                           Text="{Binding CertificatePreparationHint}"
+                           ToolTip="{Binding CertificatePreparationHint}"
+                           Height="36" LineHeight="18" TextTrimming="CharacterEllipsis"
+                           TextWrapping="Wrap"
+                           AutomationProperties.AutomationId="CertificateRefreshHint"
+                           AutomationProperties.Name="请先刷新并读取有效证书" />
+
+                <local:WorkerRecoveryGroupBox x:Name="WorkerRecoveryRegion"
+                                              Margin="0,6,0,0"
+                                              Padding="0,8,0,0"
+                                              BorderBrush="{DynamicResource Color.Border.Subtle}"
+                                              BorderThickness="0,1,0,0"
+                                              Focusable="True"
+                                              TabIndex="9"
+                                              Visibility="{Binding IsWorkerRecoveryVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                              AutomationProperties.AutomationId="WorkerRecoveryRegion"
+                                              AutomationProperties.Name="{Binding WorkerRecoveryAutomationName}"
+                                              AutomationProperties.HelpText="{Binding WorkerRecoveryHelpText}"
+                                              automation:AutomationProperties.LiveSetting="Assertive">
+                    <Grid x:Name="WorkerRecoveryGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="WorkerRecoveryMessageColumn" Width="*" />
+                            <ColumnDefinition x:Name="WorkerRecoveryActionsColumn" Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="WorkerRecoveryMessageText"
+                                   Grid.Row="0"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource Color.Text.Primary}"
+                                   Text="{Binding WorkerRecoveryMessage}"
+                                   TextWrapping="Wrap"
+                                   ToolTip="{Binding WorkerRecoveryHelpText}"
+                                   AutomationProperties.Name="{Binding WorkerRecoveryAutomationName}"
+                                   AutomationProperties.HelpText="{Binding WorkerRecoveryHelpText}" />
+                        <WrapPanel x:Name="WorkerRecoveryActionsPanel"
+                                   Grid.Row="0"
+                                   Grid.Column="1"
+                                   Margin="12,0,0,0"
+                                   HorizontalAlignment="Right">
+                            <Button Style="{StaticResource CommandButtonStyle}"
+                                    Content="重新检测 Worker"
+                                    Command="{Binding RefreshWorkerCommand}"
+                                    ToolTip="重新检测 Worker 健康状态"
+                                    AutomationProperties.AutomationId="RefreshWorkerButton"
+                                    AutomationProperties.Name="重新检测 Worker"
+                                    AutomationProperties.HelpText="重新运行 Worker 健康检查；不更改队列、设置或原始文件" />
+                            <Button Style="{StaticResource CommandButtonStyle}"
+                                    Content="修复 Worker"
+                                    Command="{Binding RepairWorkerCommand}"
+                                    ToolTip="仅重新安装 Worker 组件；确认后将显示 UAC"
+                                    Visibility="{Binding IsWorkerRepairOffered, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    AutomationProperties.AutomationId="RepairWorkerButton"
+                                    AutomationProperties.Name="修复 Worker"
+                                    AutomationProperties.HelpText="确认后将显示 Windows 用户帐户控制（UAC）；只重新安装 Worker，完成后自动重新检测，不会自动签名" />
+                            <Button Style="{StaticResource CommandButtonStyle}"
+                                    Content="打开安装目录"
+                                    Command="{Binding OpenInstallationDirectoryCommand}"
+                                    ToolTip="打开 CodeSigner 安装目录"
+                                    AutomationProperties.AutomationId="OpenInstallationDirectoryButton"
+                                    AutomationProperties.Name="打开安装目录"
+                                    AutomationProperties.HelpText="在文件资源管理器中打开包含应用和 Worker 的安装目录" />
+                        </WrapPanel>
+                    </Grid>
+                </local:WorkerRecoveryGroupBox>
+            </StackPanel>
+        </Border>
+
+        <Border x:Name="ConfigurationBand" Grid.Row="3" Height="260" Margin="0,0,0,12" Padding="0" Style="{StaticResource BandBorderStyle}">
+            <Grid x:Name="ConfigurationGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="ConfigurationColumn" Width="*" />
+                    <ColumnDefinition x:Name="DetailsColumn" Width="400" />
+                </Grid.ColumnDefinitions>
+
+                <Border x:Name="CertificateDetailsPanel" Grid.Column="0" Background="Transparent">
+                    <Grid x:Name="CertificateDetailsContent" Margin="18">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="72" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="72" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Row="0" Grid.ColumnSpan="4" Margin="0,0,0,8" Orientation="Horizontal">
+                            <Image Width="{StaticResource Metric.Icon.Command.Size}"
+                                   Height="{StaticResource Metric.Icon.Command.Size}"
+                                   Focusable="False"
+                                   IsHitTestVisible="False"
+                                   Source="{StaticResource Icon.Section.Certificate}"
+                                   Stretch="Uniform" />
+                            <TextBlock Margin="8,0,0,0"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"
+                                       Foreground="{DynamicResource Color.Text.Secondary}"
+                                       Text="证书信息" />
+                        </StackPanel>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Foreground="{DynamicResource Color.Text.Secondary}" Text="主题" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="1"
+                                   Margin="0,0,12,0"
+                                   Text="{Binding PrimaryCertificate.Subject}"
+                                   TextTrimming="CharacterEllipsis"
+                                   FontSize="{StaticResource Typography.Caption.Size}"
+                                   Foreground="{DynamicResource Color.Text.Secondary}"
+                                   ToolTip="{Binding PrimaryCertificate.Subject}" />
+                        <TextBlock Grid.Row="1" Grid.Column="2" Foreground="{DynamicResource Color.Text.Secondary}" Text="颁发者" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="3"
+                                   Text="{Binding PrimaryCertificate.Issuer}"
+                                   TextTrimming="CharacterEllipsis"
+                                   FontSize="{StaticResource Typography.Caption.Size}"
+                                   Foreground="{DynamicResource Color.Text.Secondary}"
+                                   ToolTip="{Binding PrimaryCertificate.Issuer}" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,7,0,0" Foreground="{DynamicResource Color.Text.Secondary}" Text="有效期" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,7,12,0" FontSize="{StaticResource Typography.Caption.Size}" Foreground="{DynamicResource Color.Text.Secondary}" Text="{Binding PrimaryCertificate.Expiry}" />
+                        <TextBlock Grid.Row="2" Grid.Column="2" Margin="0,7,0,0" Foreground="{DynamicResource Color.Text.Secondary}" Text="存储位置" />
+                        <TextBlock Grid.Row="2" Grid.Column="3" Margin="0,7,0,0" FontSize="{StaticResource Typography.Caption.Size}" Foreground="{DynamicResource Color.Text.Secondary}" Text="{Binding PrimaryCertificate.Store}" />
+                        <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,7,0,0" Foreground="{DynamicResource Color.Text.Secondary}" Text="指纹" />
+                        <TextBox Grid.Row="3"
+                                 Grid.Column="1"
+                                 Grid.ColumnSpan="3"
+                                 Margin="0,7,0,0"
+                                 Padding="0"
+                                 BorderThickness="0"
+                                 IsReadOnly="True"
+                                 Background="Transparent"
+                                 FontFamily="{StaticResource Font.Mono}"
+                                 FontSize="{StaticResource Typography.Caption.Size}"
+                                 Text="{Binding PrimaryCertificate.Thumbprint, Mode=OneWay}"
+                                 ToolTip="{Binding PrimaryCertificate.Thumbprint}"
+                                 AutomationProperties.AutomationId="PrimaryCertificateThumbprint"
+                                 AutomationProperties.Name="主证书完整指纹"
+                                 AutomationProperties.HelpText="只读证书指纹，可复制，不包含私钥" />
+                    </Grid>
+                </Border>
+
+                <Border x:Name="ConfigurationPanel"
+                        Grid.Column="1"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource Color.Border.Subtle}"
+                        BorderThickness="1,0,0,0">
+                    <Grid x:Name="ConfigurationContent" Margin="18">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel x:Name="SigningPolicyHeading" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                            <Image Width="18"
+                                   Height="18"
+                                   Focusable="False"
+                                   IsHitTestVisible="False"
+                                   Source="{StaticResource Icon.Section.SigningPolicy}"
+                                   Stretch="Uniform" />
+                            <TextBlock x:Name="SigningPolicyHeadingText"
+                                       Margin="8,0,0,0"
+                                       FontSize="17"
+                                       FontWeight="SemiBold"
+                                       Text="签名策略"
+                                       automation:AutomationProperties.HeadingLevel="Level2" />
+                        </StackPanel>
+                        <StackPanel x:Name="SigningModePanel"
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    Margin="0,8,0,0"
+                                    Orientation="Horizontal"
+                                    AutomationProperties.AutomationId="SigningModeGroup"
+                                    AutomationProperties.Name="签名模式">
+                            <RadioButton Style="{StaticResource SegmentedRadioButtonStyle}"
+                                         TabIndex="20"
+                                         GroupName="SigningMode"
+                                         Content="单签（SHA-256）"
+                                         IsChecked="{Binding IsSingleMode, Mode=TwoWay}"
+                                         AutomationProperties.AutomationId="SigningModeSingle"
+                                         AutomationProperties.Name="SHA-256 单签模式"
+                                         AutomationProperties.HelpText="使用 SHA-256 证书进行单次签名" />
+                            <RadioButton Margin="4,0,0,0"
+                                         TabIndex="21"
+                                         Style="{StaticResource SegmentedRadioButtonStyle}"
+                                         GroupName="SigningMode"
+                                         Content="双签（SHA-1 + SHA-256）"
+                                         IsChecked="{Binding IsDualMode, Mode=TwoWay}"
+                                         AutomationProperties.AutomationId="SigningModeDual"
+                                         AutomationProperties.Name="SHA-1 加 SHA-256 双签模式"
+                                         AutomationProperties.HelpText="先使用 SHA-1，再追加 SHA-256 签名" />
+                        </StackPanel>
+                        <TextBlock x:Name="PrimaryCertificateLabel"
+                                   Grid.Row="2"
+                                   Grid.ColumnSpan="2"
+                                   Margin="0,12,0,0"
+                                   FontWeight="SemiBold"
+                                   Text="主证书" />
+                        <ComboBox x:Name="PrimaryCertificateCombo"
+                                  Height="36"
+                                  TabIndex="22"
+                                  Grid.Row="3"
+                                  Grid.ColumnSpan="2"
+                                  Margin="0,5,0,0"
+                                  Style="{StaticResource CertificateComboBoxStyle}"
+                                  ItemsSource="{Binding Certificates}"
+                                  SelectedItem="{Binding PrimaryCertificate}"
+                                  ItemTemplate="{StaticResource CertificateOptionTemplate}"
+                                  ToolTip="{Binding PrimaryCertificate.AutomationName}"
+                                  AutomationProperties.AutomationId="PrimaryCertificateCombo"
+                                  automation:AutomationProperties.LabeledBy="{x:Reference PrimaryCertificateLabel}"
+                                  AutomationProperties.Name="主签名证书"
+                                  AutomationProperties.HelpText="{Binding PrimaryCertificate.AutomationName}" />
+                        <TextBlock x:Name="SecondaryCertificateLabel"
+                                   Grid.Row="4"
+                                   Grid.ColumnSpan="2"
+                                   Margin="0,10,0,0"
+                                   FontWeight="SemiBold"
+                                   Text="辅助证书（SHA-256）"
+                                   Visibility="{Binding IsDualMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <ComboBox x:Name="SecondaryCertificateCombo"
+                                  Height="36"
+                                  TabIndex="23"
+                                  Grid.Row="5"
+                                  Grid.ColumnSpan="2"
+                                  Margin="0,5,0,0"
+                                  Style="{StaticResource CertificateComboBoxStyle}"
+                                  ItemsSource="{Binding Certificates}"
+                                  SelectedItem="{Binding SecondaryCertificate}"
+                                  ItemTemplate="{StaticResource CertificateOptionTemplate}"
+                                  ToolTip="{Binding SecondaryCertificate.AutomationName}"
+                                  Visibility="{Binding IsDualMode, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                  AutomationProperties.AutomationId="SecondaryCertificateCombo"
+                                  automation:AutomationProperties.LabeledBy="{x:Reference SecondaryCertificateLabel}"
+                                  AutomationProperties.Name="SHA-256 辅助签名证书"
+                                  AutomationProperties.HelpText="{Binding SecondaryCertificate.AutomationName}" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Grid x:Name="QueueRegion" Grid.Row="4" Margin="0,0,0,12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid x:Name="QueueHeader" Grid.Row="0" Margin="0,4,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="QueueHeading"
+                           FontSize="{StaticResource Typography.SectionHeading.Size}"
+                           FontWeight="SemiBold"
+                           Text="文件任务队列"
+                           AutomationProperties.AutomationId="QueueHeading"
+                           automation:AutomationProperties.HeadingLevel="Level2" />
+                <TextBlock x:Name="QueueSupportCopy"
+                           Grid.Column="1"
+                           Foreground="{DynamicResource Color.Text.Tertiary}"
+                           Text="支持 PE、安装包、目录和脚本签名文件"
+                           AutomationProperties.AutomationId="QueueSupportCopy" />
+            </Grid>
+            <Grid x:Name="QueueBody" Grid.Row="1" ClipToBounds="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <DataGrid x:Name="QueueGrid"
+                          TabIndex="30"
+                          Grid.Row="0"
+                          Style="{StaticResource WorkbenchDataGridStyle}"
+                          RowHeight="50"
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding Rows}"
+                          CurrentCellChanged="QueueGrid_CurrentCellChanged"
+                          SelectionChanged="QueueGrid_SelectionChanged"
+                          AutomationProperties.AutomationId="SigningQueueGrid"
+                          automation:AutomationProperties.LabeledBy="{x:Reference QueueHeading}"
+                          AutomationProperties.Name="签名文件队列与结果">
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Focusable" Value="True" />
+                            <Setter Property="AutomationProperties.AutomationId" Value="{Binding AutomationId}" />
+                            <Setter Property="AutomationProperties.Name" Value="{Binding AutomationName}" />
+                            <Setter Property="ToolTip" Value="{Binding AutomationName}" />
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn x:Name="FileColumn" Width="2*" MinWidth="180" Header="文件输入">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="10,0"
+                                               VerticalAlignment="Center"
+                                               Text="{Binding FullPath}"
+                                               TextTrimming="CharacterEllipsis"
+                                               ToolTip="{Binding FullPath}"
+                                               AutomationProperties.Name="{Binding FullPath}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn x:Name="FormatColumn"
+                                            Width="132"
+                                            MinWidth="112"
+                                            Header="检测格式"
+                                            Binding="{Binding FormatText}" />
+                        <DataGridTextColumn x:Name="EngineColumn"
+                                            Width="124"
+                                            MinWidth="108"
+                                            Header="签名引擎"
+                                            Binding="{Binding EngineText}" />
+                        <DataGridTextColumn x:Name="PolicyColumn"
+                                            Width="124"
+                                            MinWidth="108"
+                                            Header="有效策略"
+                                            Binding="{Binding EffectivePolicyText}" />
+                        <DataGridTextColumn x:Name="StateColumn" Width="144" Header="状态" Binding="{Binding StateText}" />
+                        <DataGridTemplateColumn x:Name="ProgressColumn" Width="136" Header="进度">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="10,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="42" />
+                                        </Grid.ColumnDefinitions>
+                                        <ProgressBar Grid.Column="0"
+                                                     Height="8"
+                                                     Minimum="0"
+                                                     Maximum="100"
+                                                     Value="{Binding ProgressPercent, Mode=OneWay}"
+                                                     AutomationProperties.Name="{Binding AutomationName}" />
+                                        <TextBlock Grid.Column="1"
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   Text="{Binding ProgressPercent, StringFormat={}{0}%}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn x:Name="ResultColumn" Width="*" MinWidth="180" Header="结果">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="10,0"
+                                               VerticalAlignment="Center"
+                                               Text="{Binding ResultText}"
+                                               TextTrimming="CharacterEllipsis"
+                                               ToolTip="{Binding DetailText}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn x:Name="ActionColumn" Width="58" MinWidth="58" Header="操作">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                     <Button Style="{StaticResource CommandButtonStyle}"
+                                             Command="{Binding DataContext.RemoveQueueItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                             CommandParameter="{Binding}"
+                                             ToolTip="从队列中移除此文件，不删除源文件"
+                                             AutomationProperties.AutomationId="{Binding RemoveAutomationId}"
+                                             AutomationProperties.Name="从队列移除此签名文件"
+                                            AutomationProperties.HelpText="仅从内存队列移除，不删除、覆盖或改变源文件">
+                                        <Image Width="{StaticResource Metric.Icon.Command.Size}"
+                                               Height="{StaticResource Metric.Icon.Command.Size}"
+                                               Focusable="False"
+                                               IsHitTestVisible="False"
+                                               Source="{StaticResource Icon.Command.Remove}"
+                                               Stretch="Uniform" />
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button x:Name="QueueDirectAddButton"
+                        TabIndex="31"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Padding="{StaticResource Inset.Control.Standard}"
+                        Click="AddFiles_Click"
+                        ToolTip="选择一个或多个支持的签名文件并加入队列"
+                        AutomationProperties.AutomationId="QueueDirectAddButton"
+                        AutomationProperties.Name="直接添加签名文件"
+                        AutomationProperties.HelpText="打开文件选择器，将一个或多个支持的签名文件加入队列">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource CommandButtonStyle}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Setter Property="Grid.Row" Value="1" />
+                            <Setter Property="Grid.RowSpan" Value="1" />
+                            <Setter Property="Margin" Value="1,6,1,6" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Rows.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Setter Property="Grid.Row" Value="0" />
+                                    <Setter Property="Grid.RowSpan" Value="2" />
+                                    <Setter Property="Margin" Value="1,38,1,1" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsWorkerRecoveryVisible}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="{StaticResource Metric.Icon.Command.Size}"
+                               Height="{StaticResource Metric.Icon.Command.Size}"
+                               Focusable="False"
+                               IsHitTestVisible="False"
+                               Source="{StaticResource Icon.Command.AddFile}"
+                               Stretch="Uniform" />
+                        <TextBlock x:Name="QueueDirectAddPrompt"
+                                   Margin="6,0,0,0"
+                                   Foreground="{DynamicResource Color.Text.Secondary}"
+                                   Text="添加签名文件"
+                                   AutomationProperties.AutomationId="QueueDirectAddPrompt"
+                                   AutomationProperties.Name="添加支持的签名文件或文件夹" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Grid>
+
+        <Border x:Name="ActionBand" Grid.Row="5" Margin="0,0,0,8" Style="{StaticResource BandBorderStyle}" Padding="14,12">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="OutputLocationHint"
+                           Grid.Row="0"
+                           Margin="0,0,0,8"
+                           Foreground="{DynamicResource Color.Text.Secondary}"
+                           Text="请先选择文件输出位置，再开始签名。建议使用可写的专用文件夹。"
+                           TextWrapping="Wrap"
+                           AutomationProperties.AutomationId="OutputLocationHint"
+                           AutomationProperties.Name="签名前请选择文件输出位置" />
+                <Grid x:Name="FullActionRail" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="OutputRootLabel"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               Margin="0,0,0,5"
+                               FontWeight="SemiBold"
+                               Text="输出目录" />
+                    <TextBox x:Name="OutputRootTextBox"
+                             TabIndex="40"
+                             Grid.Row="1"
+                             Grid.Column="0"
+                             MinHeight="36"
+                             Padding="10,5"
+                             Text="{Binding OutputRoot, UpdateSourceTrigger=PropertyChanged}"
+                             LostKeyboardFocus="OutputRootTextBox_LostKeyboardFocus"
+                             ToolTip="输出目录路径（完整路径可编辑）"
+                             AutomationProperties.AutomationId="OutputRootTextBox"
+                             automation:AutomationProperties.LabeledBy="{x:Reference OutputRootLabel}"
+                             AutomationProperties.Name="输出目录"
+                             AutomationProperties.HelpText="{Binding OutputError}" />
+                    <Button Grid.Row="1"
+                            TabIndex="41"
+                            Grid.Column="1"
+                            Width="78"
+                            Height="36"
+                            Margin="8,0,0,0"
+                            Click="BrowseOutput_Click"
+                            ToolTip="选择输出目录"
+                            AutomationProperties.AutomationId="BrowseOutputButton"
+                            AutomationProperties.Name="浏览输出目录"
+                            AutomationProperties.HelpText="选择用于保存已验证签名文件输出的目录">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.BrowseOutput}" Stretch="Uniform" />
+                            <TextBlock Margin="6,0,0,0" Text="浏览" />
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Row="1"
+                            TabIndex="42"
+                            Grid.Column="2"
+                            Style="{StaticResource CommandButtonStyle}"
+                            Margin="8,0,0,0"
+                            Command="{Binding OpenOutputCommand}"
+                            ToolTip="打开输出目录"
+                            AutomationProperties.AutomationId="ActionOpenOutputButton"
+                            AutomationProperties.Name="打开输出目录"
+                            AutomationProperties.HelpText="在文件资源管理器中打开当前输出目录">
+                        <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.OpenOutput}" Stretch="Uniform" />
+                    </Button>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                            <ProgressBar Height="8"
+                                         Minimum="0"
+                                         Maximum="100"
+                                         Value="{Binding AggregateProgressPercent, Mode=OneWay}"
+                                         AutomationProperties.AutomationId="AggregateProgress"
+                                         AutomationProperties.Name="{Binding StatusMessage}"
+                                         automation:AutomationProperties.LiveSetting="Polite" />
+                             <TextBlock Margin="0,5,0,0"
+                                       Foreground="{DynamicResource Color.Text.Secondary}"
+                                       Text="{Binding QueueStatusText}"
+                                       TextWrapping="Wrap"
+                                       ToolTip="{Binding QueueStatusText}"
+                                       AutomationProperties.AutomationId="SelectedFileDisabledReason"
+                                       AutomationProperties.Name="{Binding QueueStatusText}"
+                                       automation:AutomationProperties.LiveSetting="Polite" />
+                        </StackPanel>
+                        <Button x:Name="SignButton"
+                                TabIndex="50"
+                                Grid.Column="1"
+                                Style="{StaticResource PrimaryActionButtonStyle}"
+                                Command="{Binding SignCommand}"
+                                AutomationProperties.AutomationId="SignButton"
+                                ToolTip="按队列顺序签名待处理文件"
+                                AutomationProperties.Name="开始签名"
+                                AutomationProperties.HelpText="{Binding QueueStatusText}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Sign}" Stretch="Uniform" />
+                                <TextBlock Margin="6,0,0,0" Text="{Binding SignButtonText}" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="CancelButton"
+                                TabIndex="51"
+                                Grid.Column="2"
+                                Width="88"
+                                Height="42"
+                                Margin="8,0,0,0"
+                                Command="{Binding CancelCommand}"
+                                AutomationProperties.AutomationId="CancelButton"
+                                ToolTip="停止批量签名并保留后续待处理文件"
+                                AutomationProperties.Name="取消签名"
+                                AutomationProperties.HelpText="停止批量签名，原始文件保持不变，后续文件不再启动">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Cancel}" Stretch="Uniform" />
+                                <TextBlock Margin="6,0,0,0" Text="取消" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="CompactActionRail" Grid.Row="1" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="CompactOutputRootTextBox"
+                             TabIndex="40"
+                             Grid.Row="0"
+                             Grid.Column="0"
+                             MinHeight="36"
+                             Padding="8,4"
+                             Text="{Binding OutputRoot, UpdateSourceTrigger=PropertyChanged}"
+                             LostKeyboardFocus="OutputRootTextBox_LostKeyboardFocus"
+                             ToolTip="输出目录路径（完整路径可编辑）"
+                             AutomationProperties.AutomationId="OutputRootTextBox"
+                             automation:AutomationProperties.LabeledBy="{x:Reference OutputRootLabel}"
+                             AutomationProperties.Name="输出目录"
+                             AutomationProperties.HelpText="{Binding OutputError}" />
+                    <Button Grid.Row="0"
+                            TabIndex="41"
+                            Grid.Column="1"
+                            Style="{StaticResource CommandButtonStyle}"
+                            Margin="8,0,0,0"
+                            Click="BrowseOutput_Click"
+                            ToolTip="浏览并选择输出目录"
+                            AutomationProperties.AutomationId="BrowseOutputButton"
+                            AutomationProperties.Name="浏览输出目录"
+                            AutomationProperties.HelpText="选择用于保存已验证签名文件输出的目录">
+                        <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.BrowseOutput}" Stretch="Uniform" />
+                    </Button>
+                    <Button Grid.Row="0"
+                            TabIndex="42"
+                            Grid.Column="2"
+                            x:Name="CompactOpenOutputButton"
+                            Style="{StaticResource CommandButtonStyle}"
+                            Margin="4,0,0,0"
+                            Command="{Binding OpenOutputCommand}"
+                            ToolTip="打开输出目录"
+                            AutomationProperties.AutomationId="ActionOpenOutputButton"
+                            AutomationProperties.Name="打开输出目录"
+                            AutomationProperties.HelpText="在文件资源管理器中打开当前输出目录">
+                        <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.OpenOutput}" Stretch="Uniform" />
+                    </Button>
+                    <Menu x:Name="UltraCommandButtons"
+                          Grid.Row="0"
+                          Grid.Column="3"
+                          Margin="4,0,0,0"
+                          VerticalAlignment="Center"
+                          Background="Transparent"
+                          Visibility="Collapsed">
+                        <MenuItem x:Name="CompactOverflowButton"
+                                  TabIndex="0"
+                                  MinHeight="36"
+                                  Padding="8,6"
+                                  ToolTip="显示紧凑布局中的更多操作"
+                                  AutomationProperties.AutomationId="CompactOverflowButton"
+                                  AutomationProperties.Name="更多操作"
+                                  AutomationProperties.HelpText="打开更多操作菜单，可添加或移除文件、刷新状态、打开日志和设置">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Overflow}" Stretch="Uniform" />
+                                    <TextBlock Margin="6,0,0,0" Text="更多操作" />
+                                </StackPanel>
+                            </MenuItem.Header>
+                            <MenuItem Header="添加签名文件"
+                                      TabIndex="0"
+                                      Click="AddFiles_Click"
+                                      ToolTip="添加支持的签名文件到队列"
+                                      AutomationProperties.AutomationId="AddFilesButton"
+                                      AutomationProperties.Name="添加签名文件"
+                                      AutomationProperties.HelpText="添加一个或多个支持的签名文件到队列">
+                                <MenuItem.Icon>
+                                    <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.AddFile}" Stretch="Uniform" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="添加签名文件夹"
+                                      TabIndex="1"
+                                      Click="AddFolder_Click"
+                                      ToolTip="添加包含支持签名文件的文件夹"
+                                      AutomationProperties.AutomationId="AddFolderButton"
+                                      AutomationProperties.Name="添加签名文件夹"
+                                      AutomationProperties.HelpText="选择一个文件夹，系统自动识别其中支持的签名文件">
+                                <MenuItem.Icon>
+                                    <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.AddFolder}" Stretch="Uniform" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="移除选中项"
+                                      TabIndex="2"
+                                      Command="{Binding RemoveCommand}"
+                                      ToolTip="从队列中移除选中的项"
+                                      AutomationProperties.AutomationId="RemoveButton"
+                                      AutomationProperties.Name="从队列移除选中的签名文件"
+                                      AutomationProperties.HelpText="仅从内存队列移除选中的项目，不删除源文件">
+                                <MenuItem.Icon>
+                                    <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Remove}" Stretch="Uniform" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <Separator />
+                            <MenuItem Header="刷新证书"
+                                      TabIndex="3"
+                                      Command="{Binding RefreshCommand}"
+                                      ToolTip="刷新并读取证书"
+                                      AutomationProperties.AutomationId="RefreshButton"
+                                      AutomationProperties.Name="刷新就绪状态"
+                                      AutomationProperties.HelpText="重新检查 Windows 签名环境、代码签名证书和时间戳">
+                                <MenuItem.Icon>
+                                    <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Refresh}" Stretch="Uniform" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="重试失败项"
+                                      TabIndex="4"
+                                      Command="{Binding RetryCommand}"
+                                      ToolTip="重试当前失败或暂停的文件"
+                                      AutomationProperties.AutomationId="RetryButton"
+                                      AutomationProperties.Name="重试失败或暂停的签名文件"
+                                      AutomationProperties.HelpText="从原始文件重试失败或暂停的签名文件项目">
+                                <MenuItem.Icon>
+                                    <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Retry}" Stretch="Uniform" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="打开输出目录"
+                                      TabIndex="5"
+                                      Command="{Binding OpenOutputCommand}"
+                                      ToolTip="打开输出目录"
+                                      AutomationProperties.AutomationId="OpenOutputButton"
+                                      AutomationProperties.Name="打开输出目录"
+                                      AutomationProperties.HelpText="在文件资源管理器中打开当前输出目录">
+                                <MenuItem.Icon>
+                                    <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.OpenOutput}" Stretch="Uniform" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="导出诊断信息"
+                                      TabIndex="6"
+                                      Command="{Binding ExportDiagnosticsCommand}"
+                                      ToolTip="导出诊断信息"
+                                      AutomationProperties.AutomationId="ExportDiagnosticsButton"
+                                      AutomationProperties.Name="导出诊断信息"
+                                      AutomationProperties.HelpText="导出不包含凭据和私钥的诊断文件">
+                                <MenuItem.Icon>
+                                    <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.ExportDiagnostics}" Stretch="Uniform" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="打开日志目录"
+                                      TabIndex="7"
+                                      Command="{Binding OpenLogDirectoryCommand}"
+                                      ToolTip="打开本地日志目录"
+                                      AutomationProperties.AutomationId="OpenLogDirectoryButton"
+                                      AutomationProperties.Name="打开日志目录"
+                                      AutomationProperties.HelpText="在文件资源管理器中打开本机日志目录：%LOCALAPPDATA%\CodeSigner\Diagnostics">
+                                <MenuItem.Icon>
+                                    <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.OpenLogs}" Stretch="Uniform" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <Separator />
+                            <MenuItem Header="签名设置"
+                                      TabIndex="8"
+                                      Click="Settings_Click"
+                                      ToolTip="打开设置（时间戳、诊断保留期等）"
+                                      AutomationProperties.AutomationId="SettingsButton"
+                                      AutomationProperties.Name="签名设置"
+                                      AutomationProperties.HelpText="设置时间戳地址和诊断保留期限">
+                                <MenuItem.Icon>
+                                    <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Settings}" Stretch="Uniform" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+                    <Button x:Name="CompactSignButton"
+                            TabIndex="50"
+                            Grid.Row="0"
+                            Grid.Column="4"
+                            Margin="4,0,0,0"
+                            Style="{StaticResource PrimaryActionButtonStyle}"
+                            Command="{Binding SignCommand}"
+                            AutomationProperties.AutomationId="SignButton"
+                            ToolTip="按队列顺序签名待处理文件"
+                            AutomationProperties.Name="开始签名"
+                            AutomationProperties.HelpText="{Binding QueueStatusText}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Sign}" Stretch="Uniform" />
+                            <TextBlock Margin="6,0,0,0" Text="{Binding SignButtonText}" />
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="CompactCancelButton"
+                            TabIndex="51"
+                            Grid.Row="0"
+                            Grid.Column="5"
+                            Width="88"
+                            Height="40"
+                            Margin="4,0,0,0"
+                            Command="{Binding CancelCommand}"
+                            AutomationProperties.AutomationId="CancelButton"
+                            ToolTip="停止批量签名并保留后续待处理文件"
+                            AutomationProperties.Name="取消签名"
+                            AutomationProperties.HelpText="停止批量签名，原始文件保持不变，后续文件不再启动">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Command.Cancel}" Stretch="Uniform" />
+                            <TextBlock Margin="6,0,0,0" Text="取消" />
+                        </StackPanel>
+                    </Button>
+                    <ProgressBar x:Name="CompactProgress"
+                                 Grid.Row="1"
+                                 Grid.Column="0"
+                                 Grid.ColumnSpan="6"
+                                 Height="4"
+                                 Margin="0,5,0,0"
+                                 Minimum="0"
+                                 Maximum="100"
+                                 Value="{Binding AggregateProgressPercent, Mode=OneWay}"
+                                 AutomationProperties.AutomationId="AggregateProgress"
+                                 AutomationProperties.Name="{Binding StatusMessage}"
+                                 automation:AutomationProperties.LiveSetting="Polite" />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Border x:Name="SummaryBand" Grid.Row="6" Margin="0,0,0,8" Padding="12,7" Background="{DynamicResource Color.Surface.Summary}" BorderBrush="{DynamicResource Color.Border.Subtle}" BorderThickness="0,1,0,0" CornerRadius="0">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CurrentItem.DetailText}" Value="">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CurrentItem.DetailText}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <TextBlock x:Name="SummaryRegion"
+                       Focusable="True"
+                       KeyboardNavigation.IsTabStop="False"
+                       Text="{Binding StatusMessage}"
+                       TextTrimming="CharacterEllipsis"
+                       ToolTip="{Binding StatusMessage}"
+                       AutomationProperties.AutomationId="SummaryRegion"
+                       AutomationProperties.Name="{Binding StatusMessage}"
+                       automation:AutomationProperties.LiveSetting="Polite" />
+        </Border>
+
+        <Border x:Name="RuntimeErrorBand"
+                Grid.Row="7"
+                Padding="{StaticResource Inset.Control.Standard}"
+                Background="{DynamicResource Color.Status.ErrorBackground}"
+                BorderBrush="{DynamicResource Color.Status.ErrorBorder}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource Metric.CornerRadius.Container}">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CurrentItem.DetailText}" Value="">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CurrentItem.DetailText}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0"
+                       Width="{StaticResource Metric.Icon.Command.Size}"
+                       Height="{StaticResource Metric.Icon.Command.Size}"
+                       Margin="0,0,8,0"
+                       Focusable="False"
+                       IsHitTestVisible="False"
+                       Source="{StaticResource Icon.Status.Error}"
+                       Stretch="Uniform" />
+                <TextBlock x:Name="RuntimeError"
+                           Grid.Column="1"
+                           Focusable="True"
+                           KeyboardNavigation.IsTabStop="False"
+                           Style="{StaticResource ValidationTextStyle}"
+                           Margin="0"
+                            Text="{Binding CurrentItem.DetailText}"
+                            AutomationProperties.AutomationId="RuntimeError"
+                            AutomationProperties.Name="{Binding CurrentItem.DetailText}"
+                           automation:AutomationProperties.LiveSetting="Assertive" />
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="8" Padding="{StaticResource Inset.Control.Standard}" Background="{DynamicResource Color.Status.ErrorBackground}" BorderBrush="{DynamicResource Color.Status.ErrorBorder}" BorderThickness="1" CornerRadius="{StaticResource Metric.CornerRadius.Container}">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding InputError}" Value="" />
+                                <Condition Binding="{Binding OutputError}" Value="" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding InputError}" Value="{x:Null}" />
+                                <Condition Binding="{Binding OutputError}" Value="{x:Null}" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Width="{StaticResource Metric.Icon.Command.Size}" Height="{StaticResource Metric.Icon.Command.Size}" Margin="0,0,8,0" Focusable="False" IsHitTestVisible="False" Source="{StaticResource Icon.Status.Error}" Stretch="Uniform" />
+                <StackPanel Grid.Column="1">
+                    <TextBlock x:Name="InputError"
+                               Focusable="True"
+                               KeyboardNavigation.IsTabStop="False"
+                               Text="{Binding InputError}"
+                               AutomationProperties.AutomationId="InputError"
+                               AutomationProperties.Name="{Binding InputError}"
+                               automation:AutomationProperties.LiveSetting="Assertive">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource ValidationTextStyle}">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding InputError}" Value="">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBlock Text="{Binding OutputError}"
+                               AutomationProperties.AutomationId="OutputError"
+                               AutomationProperties.Name="{Binding OutputError}"
+                               automation:AutomationProperties.LiveSetting="Assertive">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource ValidationTextStyle}">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding OutputError}" Value="">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <local:BrandSupportFooter x:Name="SupportFooter"
+                                  Grid.Row="9"
+                                  VerticalAlignment="Bottom" />
+    </Grid>
+</Window>

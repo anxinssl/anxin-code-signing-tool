@@ -1,0 +1,39 @@
+name: Source checks (1.0.44)
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  non-signing:
+    runs-on: windows-2025
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Locked restore (no WiX build)
+        shell: pwsh
+        run: |
+          $projects = @(
+            'tests/CodeSigner.App.Tests/CodeSigner.App.Tests.csproj',
+            'tests/CodeSigner.Windows.Tests/CodeSigner.Windows.Tests.csproj',
+            'tests/CodeSigner.IntegrationTests/CodeSigner.IntegrationTests.csproj'
+          )
+          foreach ($project in $projects) {
+            dotnet restore $project --locked-mode
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+      - name: Check public source and non-signing contracts
+        shell: pwsh
+        run: ./scripts/test-public-source.ps1

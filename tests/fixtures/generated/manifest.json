@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "CodeSigner.CompatibilityProbe generate-fixtures",
+  "validationScope": "Structure and unsigned build provenance only; SIP subject validation is intentionally deferred to Todos 5 and 6.",
+  "entries": [
+    {
+      "fileName": "valid-unsigned.exe",
+      "extension": ".exe",
+      "actualKind": "PortableExecutable",
+      "state": "valid",
+      "sha256": "167606d46f811a86a09e8b77ebf97ee49b51cc114f6cd8cb9f89a98189519117",
+      "signatureExpectation": "NotSigned"
+    },
+    {
+      "fileName": "valid-unsigned.dll",
+      "extension": ".dll",
+      "actualKind": "PortableExecutable",
+      "state": "valid",
+      "sha256": "216a8c9a51b8b2b0e58c9f428ca806914c60f45ef564a0c9c303c45a370ca5ab",
+      "signatureExpectation": "NotSigned"
+    },
+    {
+      "fileName": "valid-unsigned.msi",
+      "extension": ".msi",
+      "actualKind": "WindowsInstallerDatabase",
+      "state": "valid",
+      "sha256": "c4f20b305b50ab0fa2f38f49de0ad25ef162ebac1c8d2416e2a44072ba6e4ed6",
+      "signatureExpectation": "NotSigned"
+    },
+    {
+      "fileName": "valid-unsigned.cab",
+      "extension": ".cab",
+      "actualKind": "Cabinet",
+      "state": "valid",
+      "sha256": "e0bbd9c629a4bc9bcf28ebb1c1707b42a195b4ad98527d578bf73d7742780100",
+      "signatureExpectation": "NotSigned"
+    },
+    {
+      "fileName": "valid-unsigned.ocx",
+      "extension": ".ocx",
+      "actualKind": "PortableExecutable",
+      "state": "valid",
+      "sha256": "216a8c9a51b8b2b0e58c9f428ca806914c60f45ef564a0c9c303c45a370ca5ab",
+      "signatureExpectation": "NotSigned"
+    },
+    {
+      "fileName": "malformed.exe",
+      "extension": ".exe",
+      "actualKind": "Malformed",
+      "state": "malformed",
+      "sha256": "0db8a46be89fbc471c3018ca28785448b00e6c7d1bd1ca2631aacf8d73db2abe",
+      "signatureExpectation": "NotSigned"
+    },
+    {
+      "fileName": "truncated.dll",
+      "extension": ".dll",
+      "actualKind": "Malformed",
+      "state": "malformed",
+      "sha256": "9b8db510ef42b8ed54a3712636fda55a4f8cfcd5493e20b74ab00cd4f3979f2d",
+      "signatureExpectation": "NotSigned"
+    },
+    {
+      "fileName": "malformed.msi",
+      "extension": ".msi",
+      "actualKind": "Malformed",
+      "state": "malformed",
+      "sha256": "9e3df49fea44e4979294ac1012be63caf35074da0c74eed4de2873f7b4ed5710",
+      "signatureExpectation": "NotSigned"
+    },
+    {
+      "fileName": "malformed.cab",
+      "extension": ".cab",
+      "actualKind": "Malformed",
+      "state": "malformed",
+      "sha256": "acf2fa7a88deee4c5a9ad3a99356aa1a108f7e420ea00bab3ecf8aadf94a3b47",
+      "signatureExpectation": "NotSigned"
+    },
+    {
+      "fileName": "malformed.ocx",
+      "extension": ".ocx",
+      "actualKind": "Malformed",
+      "state": "malformed",
+      "sha256": "b63988dfa0e111d9575c6785d4f3568b2be2704f3678aaaf884daf7b3a38b7c7",
+      "signatureExpectation": "NotSigned"
+    },
+    {
+      "fileName": "pe-disguised-as-msi.msi",
+      "extension": ".msi",
+      "actualKind": "PortableExecutable",
+      "state": "extension-spoofed",
+      "sha256": "167606d46f811a86a09e8b77ebf97ee49b51cc114f6cd8cb9f89a98189519117",
+      "signatureExpectation": "NotSigned"
+    },
+    {
+      "fileName": "msi-disguised-as-exe.exe",
+      "extension": ".exe",
+      "actualKind": "WindowsInstallerDatabase",
+      "state": "extension-spoofed",
+      "sha256": "c4f20b305b50ab0fa2f38f49de0ad25ef162ebac1c8d2416e2a44072ba6e4ed6",
+      "signatureExpectation": "NotSigned"
+    }
+  ]
+}

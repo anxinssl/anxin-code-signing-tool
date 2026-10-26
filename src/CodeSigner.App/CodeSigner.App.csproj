@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\CodeSigner.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyMetadata Include="CodeSignerProductCode" Value="$(CodeSignerProductCode)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\CodeSigner.ico" />
+    <Resource Include="Assets\CodeSigner.png" />
+    <Resource Include="Assets\anxin-support-qr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../CodeSigner.Core/CodeSigner.Core.csproj" />
+    <ProjectReference Include="../CodeSigner.Windows/CodeSigner.Windows.csproj" />
+    <ProjectReference Include="../CodeSigner.Worker/CodeSigner.Worker.csproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+  <!-- Installer publishing stages its own self-contained Worker from the isolated output. -->
+  <Target Name="CopySigningWorker" AfterTargets="Build" Condition="'$(CodeSignerInstallerPublish)' != 'true'">
+    <ItemGroup>
+      <SigningWorkerOutput Include="$(MSBuildProjectDirectory)/../CodeSigner.Worker/bin/$(Configuration)/$(TargetFramework)/$(RuntimeIdentifier)/CodeSigner.Worker.exe" />
+      <SigningWorkerOutput Include="$(MSBuildProjectDirectory)/../CodeSigner.Worker/bin/$(Configuration)/$(TargetFramework)/$(RuntimeIdentifier)/CodeSigner.Worker.dll" />
+      <SigningWorkerOutput Include="$(MSBuildProjectDirectory)/../CodeSigner.Worker/bin/$(Configuration)/$(TargetFramework)/$(RuntimeIdentifier)/CodeSigner.Worker.deps.json" />
+      <SigningWorkerOutput Include="$(MSBuildProjectDirectory)/../CodeSigner.Worker/bin/$(Configuration)/$(TargetFramework)/$(RuntimeIdentifier)/CodeSigner.Worker.runtimeconfig.json" />
+    </ItemGroup>
+    <Copy SourceFiles="@(SigningWorkerOutput)"
+          DestinationFolder="$(OutDir)"
+          SkipUnchangedFiles="true" />
+  </Target>
+</Project>

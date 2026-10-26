@@ -1,0 +1,125 @@
+<Window x:Class="CodeSigner.App.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:automation="clr-namespace:System.Windows.Automation;assembly=PresentationCore"
+        Title="签名设置"
+        Icon="Assets/CodeSigner.ico"
+        Width="520"
+        SizeToContent="Height"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        AutomationProperties.AutomationId="SettingsWindow"
+        AutomationProperties.Name="签名设置">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   FontSize="16"
+                   FontWeight="SemiBold"
+                   Text="时间戳" />
+        <TextBox x:Name="TimestampUriTextBox"
+                 Grid.Row="1"
+                 Margin="0,8,0,0"
+                 MinHeight="36"
+                 Padding="8,4"
+                 ToolTip="RFC3161 时间戳服务器地址，默认为 http://time.certum.pl"
+                 AutomationProperties.AutomationId="SettingsTimestampUri"
+                 AutomationProperties.Name="RFC3161 时间戳地址"
+                 AutomationProperties.HelpText="请填写完整的 HTTP 或 HTTPS 地址（不含凭证）" />
+        <TextBlock x:Name="ValidationText"
+                   Grid.Row="2"
+                   Style="{StaticResource ValidationTextStyle}"
+                   AutomationProperties.AutomationId="SettingsValidationText"
+                   AutomationProperties.Name="设置校验错误"
+                   automation:AutomationProperties.LiveSetting="Assertive" />
+
+        <StackPanel Grid.Row="3" Margin="0,16,0,0">
+            <TextBlock FontWeight="SemiBold" Text="诊断保留期" />
+            <ComboBox x:Name="RetentionComboBox"
+                      Margin="0,8,0,0"
+                      MinHeight="36"
+                      Padding="8,4"
+                      ToolTip="诊断日志在磁盘上保留的天数（7天、30天或90天）"
+                      AutomationProperties.AutomationId="SettingsRetention"
+                      AutomationProperties.Name="诊断保留期限"
+                      AutomationProperties.HelpText="选择诊断文件在本机保留的天数" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Margin="0,16,0,0">
+            <TextBlock FontWeight="SemiBold" Text="Windows SDK 签名工具" />
+            <Button Width="220"
+                    Height="36"
+                    Margin="0,8,0,0"
+                    HorizontalAlignment="Left"
+                    Content="检测 Windows SDK 签名工具"
+                    Command="{Binding RefreshSdkSignToolCommand}"
+                    ToolTip="只检测已安装的可信 Windows SDK x64 SignTool，不执行签名"
+                    AutomationProperties.AutomationId="SettingsDetectSdkSignToolButton"
+                    AutomationProperties.Name="检测 Windows SDK 签名工具"
+                    AutomationProperties.HelpText="检测当前会话可用的 PE 兼容备用工具，不访问证书或执行签名" />
+            <TextBlock Margin="0,8,0,0"
+                       FontSize="12"
+                       Foreground="{DynamicResource Color.Text.Tertiary}"
+                       Text="{Binding SdkSignToolStatusText}"
+                       TextWrapping="Wrap"
+                       AutomationProperties.AutomationId="SettingsSdkSignToolStatus"
+                       AutomationProperties.Name="Windows SDK 签名工具检测状态"
+                       automation:AutomationProperties.LiveSetting="Polite" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="5"
+                    Margin="0,16,0,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button Width="120"
+                    Height="36"
+                    IsCancel="True"
+                    Content="_取消"
+                    AutomationProperties.AutomationId="SettingsCancelButton"
+                    ToolTip="放弃修改并关闭设置"
+                    AutomationProperties.Name="取消设置"
+                    AutomationProperties.HelpText="不保存任何修改" />
+            <Button Width="88"
+                    Height="36"
+                    Margin="8,0,0,0"
+                    IsDefault="True"
+                    Content="_确定"
+                    Click="Ok_Click"
+                    AutomationProperties.AutomationId="SettingsOkButton"
+                    ToolTip="保存时间戳和诊断保留期设置"
+                    AutomationProperties.Name="保存设置"
+                    AutomationProperties.HelpText="保存前会校验时间戳地址和保留期限" />
+        </StackPanel>
+
+        <Separator Grid.Row="6" Margin="0,24,0,16" />
+
+        <StackPanel Grid.Row="7"
+                    Margin="0,0,0,0"
+                    Orientation="Horizontal">
+            <TextBlock x:Name="ProductVersionText"
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource Color.Text.Tertiary}"
+                       FontSize="12" />
+            <Button x:Name="UninstallButton"
+                    Width="100"
+                    Height="36"
+                    Margin="180,0,0,0"
+                    Content="卸载程序"
+                    Click="Uninstall_Click"
+                    ToolTip="从计算机中卸载代码签名工具"
+                    AutomationProperties.AutomationId="SettingsUninstallButton"
+                    AutomationProperties.Name="卸载程序"
+                    AutomationProperties.HelpText="从计算机中卸载代码签名工具" />
+        </StackPanel>
+    </Grid>
+</Window>

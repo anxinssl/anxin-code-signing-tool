@@ -1,0 +1,1 @@
+CodeSigner installer scaffold. Product payload is added in Todo 9.

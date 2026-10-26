@@ -1,0 +1,446 @@
+{
+  "schemaVersion": 1,
+  "product": "CodeSigner",
+  "releases": [
+    {
+      "version": "1.0.0",
+      "assemblyVersion": "1.0.0.0",
+      "fileVersion": "1.0.0.0",
+      "informationalVersion": "1.0.0",
+      "productCode": "{4B8C46E0-10E2-4F04-A741-53C8D21BC4A0}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "promoted": true
+    },
+    {
+      "version": "1.0.1",
+      "assemblyVersion": "1.0.1.0",
+      "fileVersion": "1.0.1.0",
+      "informationalVersion": "1.0.1",
+      "productCode": "{2F0C0C7E-3E93-42AD-B92B-99CF7665B5DB}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:a08da05ee85fd418dd953771a3ccfd5ffae9072f3bf5f342df270db12b860df8",
+      "promoted": true
+    },
+    {
+      "version": "1.0.2",
+      "assemblyVersion": "1.0.2.0",
+      "fileVersion": "1.0.2.0",
+      "informationalVersion": "1.0.2",
+      "productCode": "{5FF0D73C-1322-4233-8C07-DE16413D358F}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:22a0e070207775d53ffe1ad11f104d81328cc189c2a432ad9e82adbfb8431b70",
+      "promoted": true
+    },
+    {
+      "version": "1.0.3",
+      "assemblyVersion": "1.0.3.0",
+      "fileVersion": "1.0.3.0",
+      "informationalVersion": "1.0.3",
+      "productCode": "{43D80937-4AD3-488D-B791-C4720F09D56A}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:dfa4f398d7d1ecb11a96a95bf926a428af94e2c56c8f6747f32d2fe01c384a19",
+      "promoted": true
+    },
+    {
+      "version": "1.0.4",
+      "assemblyVersion": "1.0.4.0",
+      "fileVersion": "1.0.4.0",
+      "informationalVersion": "1.0.4",
+      "productCode": "{FF53E11A-05FE-4EFF-9D47-B08CA1A5DEFE}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:97e513b29944146dc122631620d25ec95fb5f0cfdc6ec5e6068c60a4fb65850e",
+      "promoted": true
+    },
+    {
+      "version": "1.0.5",
+      "assemblyVersion": "1.0.5.0",
+      "fileVersion": "1.0.5.0",
+      "informationalVersion": "1.0.5",
+      "productCode": "{73969ABD-05DC-46FD-B833-164C62C80F9E}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:7cc33ada4f33f288def3eaa6589f0d7904af8addaf02fda256333e71399f8378",
+      "promoted": true
+    },
+    {
+      "version": "1.0.6",
+      "assemblyVersion": "1.0.6.0",
+      "fileVersion": "1.0.6.0",
+      "informationalVersion": "1.0.6",
+      "productCode": "{21003E1D-EAE4-4F95-B631-286863A95847}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:9e6f73a26e851042437ff2b8c1a65429f8c7aecfc9660d606d2f1dc34c4ba7ae",
+      "promoted": true
+    },
+    {
+      "version": "1.0.7",
+      "assemblyVersion": "1.0.7.0",
+      "fileVersion": "1.0.7.0",
+      "informationalVersion": "1.0.7",
+      "productCode": "{5A563212-40BE-48B7-BA76-15D36D51AB2D}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:83f44e9cea3f6f348555d7fa95fafd03264a3fff8ff579483cbd38f51674293f",
+      "promoted": true
+    },
+    {
+      "version": "1.0.8",
+      "assemblyVersion": "1.0.8.0",
+      "fileVersion": "1.0.8.0",
+      "informationalVersion": "1.0.8",
+      "productCode": "{2B1660F0-199C-4AE0-A3B6-FC552DFB74E9}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:3642c94ac846b5718fff2b51bf0c3268dfd596e1647241416ba5fba788d07579",
+      "promoted": true
+    },
+    {
+      "version": "1.0.9",
+      "assemblyVersion": "1.0.9.0",
+      "fileVersion": "1.0.9.0",
+      "informationalVersion": "1.0.9",
+      "productCode": "{E3271810-0B38-4928-ACB4-1511D1765854}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:ca729dd333f1ceb824a30399f144fa53768f16c659190b34ee17a101c4d5dbd1",
+      "promoted": true
+    },
+    {
+      "version": "1.0.10",
+      "assemblyVersion": "1.0.10.0",
+      "fileVersion": "1.0.10.0",
+      "informationalVersion": "1.0.10",
+      "productCode": "{8927BFC6-7937-4B43-9DF5-5A7AA38F73B4}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:284e63d602287320c88b115d77c03d0d0097d60b14e2e9ae58a7978f0392efa9",
+      "promoted": true
+    },
+    {
+      "version": "1.0.11",
+      "assemblyVersion": "1.0.11.0",
+      "fileVersion": "1.0.11.0",
+      "informationalVersion": "1.0.11",
+      "productCode": "{9B9ED3D3-3909-4EEF-99D6-0D0EA2FF4179}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:e0f1613f7b83cf0346a3eb6fa66478fab27fc62edbab911afad72ab07c50259c",
+      "promoted": true
+    },
+    {
+      "version": "1.0.12",
+      "assemblyVersion": "1.0.12.0",
+      "fileVersion": "1.0.12.0",
+      "informationalVersion": "1.0.12",
+      "productCode": "{DBD5F9C1-EF45-4BBF-8E01-F44D84856341}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:180be64d31ab445bf00a6b09ccb0819c0409da8daa2cf366999d62a20b4d08e4",
+      "promoted": true
+    },
+    {
+      "version": "1.0.13",
+      "assemblyVersion": "1.0.13.0",
+      "fileVersion": "1.0.13.0",
+      "informationalVersion": "1.0.13",
+      "productCode": "{E951A56B-A592-4DD2-86ED-5BFDDB6B7589}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:204798ee3fe9595c120527e2087b0f2905e632cce8b712572fe6f0d3403d12d4",
+      "promoted": true
+    },
+    {
+      "version": "1.0.14",
+      "assemblyVersion": "1.0.14.0",
+      "fileVersion": "1.0.14.0",
+      "informationalVersion": "1.0.14",
+      "productCode": "{45BE70AB-DD89-4334-9C1E-4D56CD9AE19C}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:63a26b47cbe56ff05f35e7b124354b5129c145027cf9595e73f4114813f8472c",
+      "promoted": true
+    },
+    {
+      "version": "1.0.15",
+      "assemblyVersion": "1.0.15.0",
+      "fileVersion": "1.0.15.0",
+      "informationalVersion": "1.0.15",
+      "productCode": "{64D387DB-1F26-4D24-A31E-4D79277EB63C}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:a8d2632a7952e7d70d61be776ca94a2ca74b62544abade44d21a2cf85f053afd",
+      "promoted": true
+    },
+    {
+      "version": "1.0.17",
+      "assemblyVersion": "1.0.17.0",
+      "fileVersion": "1.0.17.0",
+      "informationalVersion": "1.0.17",
+      "productCode": "{9FCD88C3-581D-438A-9DB3-4FB861F6D360}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:9e84b9e0c67a4a87d438c37b48af5fc8e6edd525f88a5c40b61dbecc0dff5d2b",
+      "promoted": false
+    },
+    {
+      "version": "1.0.18",
+      "assemblyVersion": "1.0.18.0",
+      "fileVersion": "1.0.18.0",
+      "informationalVersion": "1.0.18",
+      "productCode": "{3201F1C9-9A46-4632-BDE1-F4C2BA17CAC7}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:c177a581240b87126ab4723b75f811c32bca06b1bf5f9492b30370cf3316d4d6",
+      "promoted": false
+    },
+    {
+      "version": "1.0.19",
+      "assemblyVersion": "1.0.19.0",
+      "fileVersion": "1.0.19.0",
+      "informationalVersion": "1.0.19",
+      "productCode": "{6E25FF97-6B06-4DA8-B8A1-C84F767AE897}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:8493107e178ff63bb4b6d2fb6acdccbe0b0947a2184b26142801cc5443b9cadd",
+      "promoted": false
+    },
+    {
+      "version": "1.0.20",
+      "assemblyVersion": "1.0.20.0",
+      "fileVersion": "1.0.20.0",
+      "informationalVersion": "1.0.20",
+      "productCode": "{10532F45-1FFE-4B5D-8684-AB3434F604AF}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:b8b9f2886abb22094e0ac1193b4ecabd6134119b793c27d9f58ceb2c657a67b1",
+      "promoted": false
+    },
+    {
+      "version": "1.0.21",
+      "assemblyVersion": "1.0.21.0",
+      "fileVersion": "1.0.21.0",
+      "informationalVersion": "1.0.21",
+      "productCode": "{3950D732-B073-4BD0-9809-EC03F409AD70}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:bc7dd4fc203ab63305b9fc10b02b0e96d02398291a59707ed4d9abe3e7abf5e2",
+      "promoted": false
+    },
+    {
+      "version": "1.0.22",
+      "assemblyVersion": "1.0.22.0",
+      "fileVersion": "1.0.22.0",
+      "informationalVersion": "1.0.22",
+      "productCode": "{D30DBD4E-1C9B-4606-853D-579932E5706A}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:91473d371fa212355585cccf4fe14dcab605eae01062815f701e1aa4c28c2e5f",
+      "promoted": false
+    },
+    {
+      "version": "1.0.23",
+      "assemblyVersion": "1.0.23.0",
+      "fileVersion": "1.0.23.0",
+      "informationalVersion": "1.0.23",
+      "productCode": "{6F19A5F6-C80A-4BBA-B0A2-B4D28BA6073C}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:22f889266721ef98b38a4c68d84b6a2f3f0341a15f3cec82aab12c71dcf65644",
+      "promoted": false
+    },
+    {
+      "version": "1.0.24",
+      "assemblyVersion": "1.0.24.0",
+      "fileVersion": "1.0.24.0",
+      "informationalVersion": "1.0.24",
+      "productCode": "{80947B3C-E09E-4D27-8732-7934898B60FC}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:34799a2270c35d17edad9622d675d96b2ad3f26e5163881f4e098c46f40f7b1b",
+      "promoted": false
+    },
+    {
+      "version": "1.0.25",
+      "assemblyVersion": "1.0.25.0",
+      "fileVersion": "1.0.25.0",
+      "informationalVersion": "1.0.25",
+      "productCode": "{47CCD190-4B12-4D98-85D6-79B286DAC348}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:93a7cc116e9d2000709ed7611aff909357090ca496e6046a73f79131e85baf7d",
+      "promoted": false
+    },
+    {
+      "version": "1.0.26",
+      "assemblyVersion": "1.0.26.0",
+      "fileVersion": "1.0.26.0",
+      "informationalVersion": "1.0.26",
+      "productCode": "{93187D49-5FD0-429A-A890-558230DC03AA}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:510a5438499d2d3991d51241099d4a76ca04f6c9fc4ccf7dc30335f855e29e6b",
+      "promoted": false
+    },
+    {
+      "version": "1.0.27",
+      "assemblyVersion": "1.0.27.0",
+      "fileVersion": "1.0.27.0",
+      "informationalVersion": "1.0.27",
+      "productCode": "{38CC0FF7-BE07-4B7B-A563-17F43E6C4023}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:c7ca74c82d38bc5a7e92f9a0d6738c5b88ee6136d1560ee616072a16d3c8ee1c",
+      "promoted": false
+    },
+    {
+      "version": "1.0.28",
+      "assemblyVersion": "1.0.28.0",
+      "fileVersion": "1.0.28.0",
+      "informationalVersion": "1.0.28",
+      "productCode": "{4FEF1258-47C2-4D55-8EF2-094090338366}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:d7ee5030175a1bdbb8bc80fb00ecdfde79db8a82e2426d8aaf15d8871961b2dc",
+      "promoted": false
+    },
+    {
+      "version": "1.0.29",
+      "assemblyVersion": "1.0.29.0",
+      "fileVersion": "1.0.29.0",
+      "informationalVersion": "1.0.29",
+      "productCode": "{B681590C-85C4-446B-8EC9-811F8F4368ED}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:a298a3f0c73f1df01f3997dfd4142819bf41e5059d2a4c5e3ce12b86493f53ad",
+      "promoted": false
+    },
+    {
+      "version": "1.0.30",
+      "assemblyVersion": "1.0.30.0",
+      "fileVersion": "1.0.30.0",
+      "informationalVersion": "1.0.30",
+      "productCode": "{9AD1B19A-7A4D-4E57-AC31-9BDB1BF14D94}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:d4f25f2c13124e5fbf4ab28d15919952c0647733f01555710465d1515143075d",
+      "promoted": true
+    },
+    {
+      "version": "1.0.31",
+      "assemblyVersion": "1.0.31.0",
+      "fileVersion": "1.0.31.0",
+      "informationalVersion": "1.0.31",
+      "productCode": "{E98B2B48-8E2C-4AB6-9F42-E5E5AD0B3C81}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:4a94bfe992d1bdf5cb8e0465e184a8abe9e1391f4846b0f412f211b85305fbf9",
+      "promoted": false
+    },
+    {
+      "version": "1.0.32",
+      "assemblyVersion": "1.0.32.0",
+      "fileVersion": "1.0.32.0",
+      "informationalVersion": "1.0.32",
+      "productCode": "{2A964E16-1521-4EEC-BB6A-8CCBD7282E7A}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:8c7ac834775a13517ab9a4937d49935d4c097e61e1cd2ba431f4f2548da023c9",
+      "promoted": false
+    },
+    {
+      "version": "1.0.33",
+      "assemblyVersion": "1.0.33.0",
+      "fileVersion": "1.0.33.0",
+      "informationalVersion": "1.0.33",
+      "productCode": "{E691CA90-2B4C-4A0D-A603-95C53F39628A}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:cdcd8dc9f0cf486e62de5bb7fadea91879d8ed44c10cae0049f3f8410e89b6f7",
+      "promoted": false
+    },
+    {
+      "version": "1.0.34",
+      "assemblyVersion": "1.0.34.0",
+      "fileVersion": "1.0.34.0",
+      "informationalVersion": "1.0.34",
+      "productCode": "{89D4061F-9DF4-4C71-9F1E-35F6B20EF13A}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:863867d2ff84d98fa599da663338786602ff4e775b72c2faff343dbac82e6f75",
+      "promoted": false
+    },
+    {
+      "version": "1.0.35",
+      "assemblyVersion": "1.0.35.0",
+      "fileVersion": "1.0.35.0",
+      "informationalVersion": "1.0.35",
+      "productCode": "{3CABAA34-6C00-41EE-8F85-8E313240759B}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:448f7a5a25cd9b4140616bab8beed11a6cc0bd924089cc78cf043e05cd0d59df",
+      "promoted": false
+    },
+    {
+      "version": "1.0.36",
+      "assemblyVersion": "1.0.36.0",
+      "fileVersion": "1.0.36.0",
+      "informationalVersion": "1.0.36",
+      "productCode": "{497F5504-2B96-46EE-B280-7E3BEB4D14D5}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:6a5dfba6a181a12a8d4ddc9d7515b5c8e28d58cfc5a89702cf82519160b502ad",
+      "promoted": false
+    },
+    {
+      "version": "1.0.37",
+      "assemblyVersion": "1.0.37.0",
+      "fileVersion": "1.0.37.0",
+      "informationalVersion": "1.0.37",
+      "productCode": "{D6D64586-511F-440D-887F-58E5DC35DEB7}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:27339dd0a3f98d3bac6570b2b925470d89e43bebfc417f9ff4b26e04ac48626f",
+      "promoted": false
+    },
+    {
+      "version": "1.0.38",
+      "assemblyVersion": "1.0.38.0",
+      "fileVersion": "1.0.38.0",
+      "informationalVersion": "1.0.38",
+      "productCode": "{AF793D8F-5F69-478A-90D9-390F7AFF3537}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:5ccd05879e0b6878da91e3723a0df8d8105853986b4b2774fd361a2d5f4c35e6",
+      "promoted": false
+    },
+    {
+      "version": "1.0.39",
+      "assemblyVersion": "1.0.39.0",
+      "fileVersion": "1.0.39.0",
+      "informationalVersion": "1.0.39",
+      "productCode": "{C71AACE4-B3B4-4033-B02B-340A00048EB2}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:9e664ca18f7a1ff2669505614e66e1514888d3c092f8b5b61979c4d725d08026",
+      "promoted": false
+    },
+    {
+      "version": "1.0.40",
+      "assemblyVersion": "1.0.40.0",
+      "fileVersion": "1.0.40.0",
+      "informationalVersion": "1.0.40",
+      "productCode": "{C5A22B2A-C390-4AA3-AD3C-F462BE0AD73C}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:75d33c7258161a15da9ba3155612361749e13ca63392bdd1ddfedd78493bfe6d",
+      "promoted": false
+    },
+    {
+      "version": "1.0.41",
+      "assemblyVersion": "1.0.41.0",
+      "fileVersion": "1.0.41.0",
+      "informationalVersion": "1.0.41",
+      "productCode": "{E43F8523-6C97-47A7-8D0D-F74871A468FC}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:9c73f4bac60869384e2ea4db0adbc2353c3ae0affd3fb833d6b5c929e22a69c8",
+      "promoted": false
+    },
+    {
+      "version": "1.0.42",
+      "assemblyVersion": "1.0.42.0",
+      "fileVersion": "1.0.42.0",
+      "informationalVersion": "1.0.42",
+      "productCode": "{A58E478C-61F0-4B79-882D-D56D392762A0}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:d0898a5810decb46b6e44d750774be60e6820e4f1f289687df06dc95c18df47c",
+      "promoted": false
+    },
+    {
+      "version": "1.0.43",
+      "assemblyVersion": "1.0.43.0",
+      "fileVersion": "1.0.43.0",
+      "informationalVersion": "1.0.43",
+      "productCode": "{C65FD21F-3BDE-47E8-9AD2-63D49443D865}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:b31fe68ffc461bd019a1ff27de7dcce00012ff5b9d161c620825cf3b48c641db",
+      "promoted": false
+    },
+    {
+      "version": "1.0.44",
+      "assemblyVersion": "1.0.44.0",
+      "fileVersion": "1.0.44.0",
+      "informationalVersion": "1.0.44",
+      "productCode": "{E59DA367-7017-4A82-B1EC-C2E751FAAA48}",
+      "upgradeCode": "{C81BF087-67D0-41F3-8581-9E773813118B}",
+      "sourceFingerprint": "sha256:6b026a48513c1f1df924d33b27f0a39ece9b199f2b5b6a45f9351f692190e0f1",
+      "promoted": false
+    }
+  ]
+}

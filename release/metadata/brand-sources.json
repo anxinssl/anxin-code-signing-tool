@@ -1,0 +1,13 @@
+{
+  "approvedBy": "Product owner request in this task, 2026-10-22",
+  "icon": {
+    "url": "https://www.anxinssl.com/wp-content/uploads/2020/06/cropped-ioc-192x192.png",
+    "purpose": "Original green Anxin symbol for WPF header and derived Windows icon"
+  },
+  "wordmark": {
+    "url": "https://www.anxinssl.com/wp-content/uploads/2025/05/antrust-logo.png",
+    "purpose": "Reviewed reference; not shipped as a second header logo"
+  },
+  "supportQr": "Existing approved enterprise WeChat QR retained byte-for-byte",
+  "copyrightHolder": "安徽斯百德信息技术有限公司"
+}

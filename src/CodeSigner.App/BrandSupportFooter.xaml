@@ -1,0 +1,110 @@
+<UserControl x:Class="CodeSigner.App.BrandSupportFooter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Focusable="False"
+             UseLayoutRounding="True"
+             SizeChanged="Footer_SizeChanged"
+             Unloaded="Footer_Unloaded"
+             AutomationProperties.AutomationId="BrandSupportFooter">
+    <Border BorderBrush="{DynamicResource Color.Separator}"
+            BorderThickness="0,1,0,0"
+            Padding="8,4,4,0">
+        <Grid x:Name="SupportBar" Height="36">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel x:Name="WebsitePanel" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button x:Name="WebsiteButton"
+                        Style="{DynamicResource CommandButtonStyle}" Padding="6,4"
+                        Click="Website_Click" TabIndex="60"
+                        Foreground="{DynamicResource Color.Accent.Primary}"
+                        ToolTip="查看安信代码签名证书"
+                        AutomationProperties.AutomationId="AnxinWebsiteLink"
+                        AutomationProperties.Name="打开安信官网">
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem x:Name="CopyWebsiteMenuItem" Header="复制官网地址" Click="CopyWebsite_Click" />
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                    <TextBlock FontSize="12" Text="安信官网 ↗" />
+                </Button>
+                <TextBlock x:Name="SupportHint" Margin="16,0,0,0" VerticalAlignment="Center"
+                           FontSize="12" Foreground="{DynamicResource Color.Text.Secondary}"
+                           Text="证书选购与签名使用问题，欢迎咨询安信。" />
+            </StackPanel>
+            <Button x:Name="SupportButton"
+                    Grid.Column="1"
+                    Style="{DynamicResource CommandButtonStyle}"
+                    Padding="12,4"
+                    Background="#ECF8EE"
+                    Foreground="#176A32"
+                    BorderBrush="#A3D9AE"
+                    BorderThickness="1"
+                    Margin="8,0,0,0"
+                    Click="Support_Click"
+                    TabIndex="63"
+                    ToolTip="查看技术支持客服二维码"
+                    AutomationProperties.AutomationId="TechnicalSupportButton"
+                    AutomationProperties.Name="技术支持客服二维码">
+                <TextBlock VerticalAlignment="Center" FontSize="12" Text="联系技术支持" />
+            </Button>
+            <Popup x:Name="SupportPopup"
+                   PlacementTarget="{Binding ElementName=SupportButton}"
+                   Placement="Top"
+                   VerticalOffset="-8"
+                   StaysOpen="False"
+                   AllowsTransparency="True"
+                   Opened="SupportPopup_Opened">
+                <Border x:Name="SupportPanel"
+                        Width="280"
+                        Padding="14"
+                        Background="{DynamicResource Color.Surface.Elevated}"
+                        BorderBrush="{DynamicResource Color.Border.Subtle}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        KeyboardNavigation.TabNavigation="Cycle"
+                        PreviewKeyDown="SupportPanel_PreviewKeyDown">
+                    <StackPanel>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center"
+                                       FontSize="14" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource Color.Text.Primary}"
+                                       Text="安信技术支持" />
+                            <Button x:Name="CloseSupportButton"
+                                    Grid.Column="1"
+                                    Width="28" Height="28" MinWidth="28" MinHeight="28"
+                                    Margin="0" Padding="4"
+                                    Style="{DynamicResource CommandButtonStyle}"
+                                    Click="CloseSupport_Click"
+                                    ToolTip="关闭二维码"
+                                    AutomationProperties.AutomationId="CloseSupportButton"
+                                    AutomationProperties.Name="关闭技术支持二维码">
+                                <Image Width="16" Height="16" Focusable="False" IsHitTestVisible="False"
+                                       Source="{DynamicResource Icon.Command.Cancel}" />
+                            </Button>
+                        </Grid>
+                        <Border Background="White">
+                            <Image x:Name="SupportQrImage"
+                                   Source="/CodeSigner.App;component/Assets/anxin-support-qr.png"
+                                   Width="248" Height="244"
+                                   Stretch="Uniform"
+                                   RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                   Focusable="False"
+                                   AutomationProperties.AutomationId="TechnicalSupportQrCode"
+                                   AutomationProperties.Name="安信技术支持客服二维码" />
+                        </Border>
+                        <TextBlock Margin="0,10,0,0" HorizontalAlignment="Center"
+                                   Foreground="{DynamicResource Color.Text.Secondary}"
+                                   TextAlignment="Center" TextWrapping="Wrap"
+                                   FontSize="12" Text="扫码添加企业微信&#10;获取证书咨询与签名帮助" />
+                    </StackPanel>
+                </Border>
+            </Popup>
+        </Grid>
+    </Border>
+</UserControl>

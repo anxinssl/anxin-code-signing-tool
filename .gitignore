@@ -1,0 +1,81 @@
+.build/
+.omo/
+.venv/
+.tmp/
+.codex/
+.agents/
+.codegraph/
+rizhi/
+--concurrency-smoke/
+--prepare-smoke/
+.exe/
+
+# Credentials, certificate exports, personal configuration, and diagnostics
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.key
+*.pem
+*.cer
+*.crt
+*.snk
+*.log
+*.jsonl
+logs/
+node_modules/
+.vs/
+*.user
+*.suo
+*.tmp
+
+# Linked Git worktrees kept beside the primary working tree
+/.worktrees/
+
+# Local-only vendor/history material, generated output, and machine state
+/references/vendor/
+/references/history/
+/artifacts/
+/.local/
+
+# Local debugging / transient notes
+.debug-journal.md
+
+# Local image-generation credentials
+/photo.txt
+/.image-gen-env_sub2
+
+# Accidental root-level local evidence and certificate exports
+/-v
+/0
+/1
+
+# .NET build outputs
+**/bin/
+**/obj/
+**/TestResults/
+*.trx
+*.binlog
+*.wixpdb
+
+# Python generated cache
+**/__pycache__/
+
+# Local runtime diagnostics
+CodeSigner-diagnostics-*.json
+CodeSigner-runtime-*.jsonl
+
+# Historical / evidence-only patch files
+todo6-correction-v2-metadata-finalize-20260720-v2.patch
+todo6-correction-v2-metadata-finalize-20260720-v3.patch
+
+# Third-party / reference installers and binaries at repository root
+/pc端签名软件.exe
+/SimpleCodeSigner.exe
+/SimPlySign.apk
+/SimplySignDesktop-9.2.14.61-64-bit-en.msi
+/certum-cloud-signtool-current.pdf
+/certum-simplysign-signtool.pdf
+/Certum 云端代码签名提取教程.docx
+/Certum安信证书代码签名证书签名教程.docx

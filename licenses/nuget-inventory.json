@@ -1,0 +1,101 @@
+{
+  "source": "NuGet package nuspec metadata; excludes project references",
+  "packages": [
+    {
+      "id": "Microsoft.CodeCoverage",
+      "version": "18.8.1",
+      "licenseType": "expression",
+      "license": "MIT",
+      "licenseUrl": "https://licenses.nuget.org/MIT",
+      "requireLicenseAcceptance": "true"
+    },
+    {
+      "id": "Microsoft.NET.Test.Sdk",
+      "version": "18.8.1",
+      "licenseType": "expression",
+      "license": "MIT",
+      "licenseUrl": "https://licenses.nuget.org/MIT",
+      "requireLicenseAcceptance": "true"
+    },
+    {
+      "id": "Microsoft.TestPlatform.ObjectModel",
+      "version": "18.8.1",
+      "licenseType": "expression",
+      "license": "MIT",
+      "licenseUrl": "https://licenses.nuget.org/MIT",
+      "requireLicenseAcceptance": "true"
+    },
+    {
+      "id": "Microsoft.TestPlatform.TestHost",
+      "version": "18.8.1",
+      "licenseType": "expression",
+      "license": "MIT",
+      "licenseUrl": "https://licenses.nuget.org/MIT",
+      "requireLicenseAcceptance": "true"
+    },
+    {
+      "id": "xunit.abstractions",
+      "version": "2.0.3",
+      "licenseType": null,
+      "license": null,
+      "licenseUrl": "https://raw.githubusercontent.com/xunit/xunit/master/license.txt",
+      "requireLicenseAcceptance": "false"
+    },
+    {
+      "id": "xunit.analyzers",
+      "version": "1.18.0",
+      "licenseType": "expression",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://licenses.nuget.org/Apache-2.0",
+      "requireLicenseAcceptance": "false"
+    },
+    {
+      "id": "xunit.assert",
+      "version": "2.9.3",
+      "licenseType": "expression",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://licenses.nuget.org/Apache-2.0",
+      "requireLicenseAcceptance": "false"
+    },
+    {
+      "id": "xunit.core",
+      "version": "2.9.3",
+      "licenseType": "expression",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://licenses.nuget.org/Apache-2.0",
+      "requireLicenseAcceptance": "false"
+    },
+    {
+      "id": "xunit.extensibility.core",
+      "version": "2.9.3",
+      "licenseType": "expression",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://licenses.nuget.org/Apache-2.0",
+      "requireLicenseAcceptance": "false"
+    },
+    {
+      "id": "xunit.extensibility.execution",
+      "version": "2.9.3",
+      "licenseType": "expression",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://licenses.nuget.org/Apache-2.0",
+      "requireLicenseAcceptance": "false"
+    },
+    {
+      "id": "xunit.runner.visualstudio",
+      "version": "3.1.5",
+      "licenseType": "expression",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://licenses.nuget.org/Apache-2.0",
+      "requireLicenseAcceptance": "false"
+    },
+    {
+      "id": "xunit",
+      "version": "2.9.3",
+      "licenseType": "expression",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://licenses.nuget.org/Apache-2.0",
+      "requireLicenseAcceptance": "false"
+    }
+  ]
+}

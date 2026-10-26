@@ -1,0 +1,13 @@
+{
+  "file": "src/CodeSigner.App/ViewModels/SigningWorkbenchViewModel.WorkerRecovery.cs",
+  "replacements": [
+    ["Windows Installer 找不到原始安装源，Worker 未修复。请使用原安装包重新安装 CodeSigner。", "安装维护文件缺失，Worker 未修复。请使用本版本 EXE 安装包重新安装工具。"],
+    ["Windows Installer 正忙，Worker 未修复。请稍后重试。", "安装维护程序正忙或组件被占用，Worker 未修复。请稍后重试。"],
+    ["Windows Installer 修复 Worker 失败。请导出诊断信息并检查安装日志。", "安装维护程序修复 Worker 失败。请关闭工具后重新运行本版本 EXE 安装包。"],
+    ["Windows Installer 返回未知结果，无法确认 Worker 是否已修复。", "安装维护程序返回未知结果，无法确认 Worker 是否已修复。"],
+    ["未找到已安装的 CodeSigner，无法使用 MSI 修复 Worker。", "未找到与当前工具匹配的安装记录，请使用本版本 EXE 安装包重新安装。"],
+    ["CodeSigner 仅处于广告安装状态，无法使用 MSI 修复 Worker。", "安装尚未完成，无法修复 Worker。请重新运行安装包。"],
+    ["Windows Installer 不可用，无法修复 Worker。", "安装维护程序不可用，无法修复 Worker。"],
+    ["此故障不支持 MSI Worker 修复。", "此故障不支持自动修复，请使用本版本 EXE 安装包重新安装。"]
+  ]
+}
