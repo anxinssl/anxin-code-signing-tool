@@ -1,76 +1,68 @@
-# 安信代码签名证书工具 1.0.44
+# 安信代码签名证书工具
 
-Copyright (C) 2026 安徽斯百德信息技术有限公司
+<img src="src/CodeSigner.App/Assets/CodeSigner.png" alt="安信 SSL 证书" width="64" height="64">
 
-Windows 10/11 x64 桌面代码签名工具，使用 C#、.NET 10 和 WPF。
-第一方代码采用 [GPLv3，仅限第 3 版](LICENSE)，第三方声明见
-[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。
+适用于 Windows 的免费、开源中文图形化代码签名工具，用于为 EXE、DLL、MSI 等文件添加代码签名和时间戳，适合软件开发、测试及发布人员使用。
 
-## 使用
+工具基于 Windows 原生证书与代码签名机制，通过兼容的证书客户端或硬件驱动完成签名。用户无需导出私钥或手动编写签名命令，即可在界面中完成证书选择、文件导入和签名操作。
 
-运行正式发布的 `Anxin-Code-Signing-Certificate-Tool-1.0.44-win-x64-Setup.exe`。
-安装包自带 .NET 运行时，客户不需要安装开发 SDK。
-新安装器使用 NSIS，不再使用 WiX 构建 MSI。
+**[下载安装包](https://github.com/anxinssl/anxin-code-signing-tool/releases/latest)** · **[使用教程](docs/user-guide.md)** · **[安信官网](https://www.anxinssl.com/)** · **[反馈问题](https://github.com/anxinssl/anxin-code-signing-tool/issues)**
 
-**从旧 MSI 版本迁移：**先关闭工具，在 Windows 设置中卸载旧版安信证书签名工具，
-再运行新版 EXE 安装包。保留 SimplySign、证书、原文件和输出文件。
-新版检测到旧 MSI 时会停止安装并说明步骤，不会自动卸载已验证版本。
-安装到受保护的 `Program Files\AnxinCodeSigner`，不支持自行移动程序目录。
+## 主要功能
 
-云证书先登录对应客户端；硬件 UKey 先插入设备并确认对应驱动已识别。
-打开工具，刷新并选中有效证书，导入文件，
-选择签名模式及独立输出目录，然后开始签名。详见[使用教程](docs/user-guide.md)。
-底部“安信官网”打开代码签名证书页面；“联系技术支持”弹出企微二维码。
+- **中文操作界面**：常用按钮配有文字说明，可查看证书信息、文件队列、处理进度和结果。
+- **云证书与硬件 UKey**：云证书配合 SimplySign Desktop 等兼容客户端使用；DigiCert、Sectigo、GlobalSign 等 CA 的硬件 UKey 代码签名证书，需配合 SafeNet 等设备对应驱动，并满足本工具的证书及私钥调用要求。
+- **单签与双签**：提供 SHA-256 单签及符合条件时的 SHA-1 + SHA-256 双签，并提示文件可用的签名方式。
+- **批量处理**：支持添加多个文件或从文件夹导入待签名文件，按队列执行签名。
+- **时间戳与输出管理**：支持配置时间戳服务，并将签名结果保存到用户选择的独立输出目录。
+- **日志与诊断**：提供错误提示、日志及诊断导出入口，便于定位使用中的问题。
 
-## 开发与验证
+## 常用文件的签名方式
 
-要求 Windows x64、.NET SDK 10.0.302、Node.js 22+、PowerShell 7 和 Git。
+| 文件类型 | 签名方式 | 使用条件 |
+| --- | --- | --- |
+| EXE、DLL、OCX 等真实 PE 文件 | 单签或双签 | 双签需文件支持，并选择合适的辅助证书。 |
+| MSI、CAB 文件 | 单签 | 在本工具中不使用双签。 |
 
-```powershell
-dotnet restore CodeSigner.sln --locked-mode
-pwsh -NoProfile -File scripts/test-public-source.ps1
-```
+文件后缀不是唯一判断依据；其他格式及具体可用模式，以工具检测结果为准。
 
-默认脚本只运行明确筛选的非签名检查，不执行真实签名、证书读取或生产窗口操作。
-不要直接运行全解决方案测试。ZIP 源码使用者先执行 `git init` 和 `git add .`，
-供文件清单检查使用。
+## 下载与安装
 
-## 构建
+适用系统：**Windows 10/11 x64**。
 
-```powershell
-pwsh -NoProfile -File scripts/setup-nsis.ps1
-git add .
-node scripts/source-snapshot.mjs
-pwsh -NoProfile -File scripts/build-nsis.ps1
-```
+在 [Releases 页面](https://github.com/anxinssl/anxin-code-signing-tool/releases/latest)下载并运行 **EXE 安装包**，按照提示完成安装。安装包自带 .NET 运行时，无需额外安装 .NET SDK。
 
-NSIS 来自固定版本的 electron-userland 维护者构建，下载地址、源版本和哈希见
-`release/metadata/nsis-toolchain.json`。构建工具仅放在忽略的 `.local` 目录中。
-源码 ZIP 输出到 `artifacts/source/1.0.44/`，安装包到 `artifacts/nsis-build/1.0.44/`。
-安装包携带 `source-manifest.json`，记录源码树、源码 ZIP 哈希及逐文件哈希。
-必须同时发布这两个配套文件；改动源码后须重新生成源码快照及安装包。
+普通用户选择 EXE 安装包；对应源码 ZIP 用于查看源码及自行构建。
 
-```powershell
-# 只操作隔离的每用户 QA 目录，不替换生产安装
-pwsh -NoProfile -File scripts/build-nsis.ps1 -TestPackage -SkipPublish
-pwsh -NoProfile -File scripts/test-nsis.ps1
-```
+## 开始签名
 
-`INSTALLER-QA-ONLY` 文件不能交付客户。管理员安装、旧 MSI 迁移、
-Windows 设置卸载及真实签名仍需人工验收。
+准备证书：
 
-## 修改边界
+- **云证书用户**：安装并登录对应客户端。例如，Certum 云证书配合 SimplySign Desktop 使用。
+- **硬件 UKey 用户**：安装 SafeNet 等设备对应驱动，插入 UKey，确认客户端能够识别设备和证书。此类用户无需额外安装 SimplySign。
 
-签名引擎、证书读取、时间戳、Worker、文件处理及批量签名算法保持原固定版源码。
-1.0.44 在 1.0.43 基础上仅移除文件队列中的公司名称装饰水印。
-证书筛选、私钥调用、签名执行和签名前置校验保持 1.0.42 的行为。
-不根据是否安装 SafeNet 放行，不探测真实私钥或在刷新时试签。
-既有维护提示仅替换字符串，校验脚本逆向恢复
-这些固定替换后验证原始方法所在文件的哈希。
+操作步骤：
 
-历史 MSI 定义和工具仅保留用于追溯，不在当前解决方案或发布入口中构建。
-不要使用旧的 `build-codesigner-signing-diagnostics-110.mjs` 发布本版本。
-历史 WiX 条款记录不代表历史使用义务已经解决。
-本项目不捆绑 SimplySign、Windows SDK 或 SignTool。
+1. **刷新证书**：打开工具，点击“刷新证书”，看到有效证书后选择主证书。
+2. **添加文件**：点击“添加文件”或“添加文件夹”，检查待签名文件队列。
+3. **选择模式**：通常使用单签；需要双签时，确认文件支持双签并选择符合要求的辅助证书。
+4. **选择输出位置**：使用有写入权限的独立文件夹，输出目录不能与原文件位置相同。
+5. **开始签名**：点击“签名”，等待队列处理完成，期间保持客户端会话或 UKey 连接。
+6. **获取结果**：查看各文件的处理结果，打开输出目录获取签名后的文件。
 
-参见[贡献说明](CONTRIBUTING.md)、[安全说明](SECURITY.md)。
+## 使用注意事项
+
+- 需自行准备有效的代码签名证书及对应客户端或驱动，工具不附带证书。
+- 证书需具备代码签名用途、关联私钥，并能通过对应客户端或驱动完成调用；不同云服务、UKey 型号和驱动版本的兼容性以实际环境为准。
+- 添加时间戳需要网络可用。
+- 遇到保存失败或权限提示时，请更换可写的独立输出目录后重试；桌面和 C 盘并非一律不可用。
+
+## 开源与技术支持
+
+本工具使用 **C#、.NET 10 和 WPF** 开发，第一方代码采用 **GNU GPL 第 3 版，仅限第 3 版（GPL-3.0-only）**。许可证全文、版权及第三方说明见 [LICENSE](LICENSE)、[NOTICE](NOTICE) 和 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。
+
+欢迎通过 [Issues](https://github.com/anxinssl/anxin-code-signing-tool/issues) 反馈问题和建议，提供软件版本、系统版本、证书使用方式及错误信息，提交前请对诊断资料脱敏。
+
+证书选购与签名使用咨询：[安信代码签名证书](https://www.anxinssl.com/code-signing-certificate/)。也可通过软件内“联系技术支持”按钮获取帮助。
+
+开发者请参阅[开发与构建说明](docs/development.md)、[贡献说明](CONTRIBUTING.md)和[安全说明](SECURITY.md)。
